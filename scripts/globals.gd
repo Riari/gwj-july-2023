@@ -5,13 +5,23 @@ enum Colour {BLACK, BLUE, BROWN, GREEN, ORANGE, RED, WHITE} # Train and crate co
 enum TrainDirection {NORTH, SOUTH}
 
 const EnabledColours = [
-	Globals.Colour.BLUE,
-	Globals.Colour.GREEN,
-	Globals.Colour.RED,
-	Globals.Colour.BLACK,
-	Globals.Colour.ORANGE,
-	Globals.Colour.WHITE,
+	Colour.BLUE,
+	Colour.GREEN,
+	Colour.RED,
+	Colour.BLACK,
+	Colour.ORANGE,
+	Colour.WHITE,
 ]
+
+const ColourLabels = {
+	Colour.BLACK: "Black",
+	Colour.BLUE: "Blue",
+	Colour.BROWN: "Brown",
+	Colour.GREEN: "Green",
+	Colour.ORANGE: "Orange",
+	Colour.RED: "Red",
+	Colour.WHITE: "White"
+}
 
 static var rng = RandomNumberGenerator.new()
 

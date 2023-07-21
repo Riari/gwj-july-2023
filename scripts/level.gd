@@ -6,8 +6,8 @@ extends Node3D
 @export var track_scene: PackedScene
 
 # Train settings
-@export_range (1, 10) var train_spawn_interval_min: int = 1 # per track in seconds
-@export_range (1, 10) var train_spawn_interval_max: int = 10 # per track in seconds
+@export_range (1, 20) var train_spawn_interval_min: int = 1 # per track in seconds
+@export_range (1, 20) var train_spawn_interval_max: int = 20 # per track in seconds
 @export var train_speed: float = 0.5
 
 @onready var tracks = $Tracks

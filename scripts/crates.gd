@@ -26,6 +26,8 @@ func spawn_crate():
 	self.add_child(current_crate)
 	current_crate.set_colour(colour)
 
+	print("Spawned " + Globals.ColourLabels.get(colour) + " crate")
+
 func calculate_crate_position(mouse_position: Vector2):
 	var space_state = get_world_3d().direct_space_state
 

@@ -8,7 +8,7 @@
 resource_name = "initialShadingGroup2"
 cull_mode = 2
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.788235, 0.439216, 0, 1)
+albedo_color = Color(0.482353, 0, 0, 1)
 albedo_texture = ExtResource("1_rgjpy")
 metallic = 1.0
 metallic_texture = ExtResource("2_b7gur")
