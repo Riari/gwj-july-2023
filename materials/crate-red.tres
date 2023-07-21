@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://c2hbeao8b4jkg"]
+
+[ext_resource type="Texture2D" uid="uid://b0x4r20lym62s" path="res://models/stylized_crate_0.png" id="1_rgjpy"]
+[ext_resource type="Texture2D" uid="uid://bq8cfmiiukl5g" path="res://models/stylized_crate_1.png" id="2_b7gur"]
+[ext_resource type="Texture2D" uid="uid://eokm65q5t3ih" path="res://models/stylized_crate_2.png" id="3_267bl"]
+
+[resource]
+resource_name = "initialShadingGroup2"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.788235, 0.439216, 0, 1)
+albedo_texture = ExtResource("1_rgjpy")
+metallic = 1.0
+metallic_texture = ExtResource("2_b7gur")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_b7gur")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_267bl")
+ao_enabled = true
+ao_texture = ExtResource("2_b7gur")

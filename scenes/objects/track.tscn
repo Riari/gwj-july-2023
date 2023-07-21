@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuo8hdm3d28q6"]
+[gd_scene load_steps=3 format=3 uid="uid://cuo8hdm3d28q6"]
 
+[ext_resource type="Script" path="res://scripts/track.gd" id="1_6w8mq"]
 [ext_resource type="PackedScene" uid="uid://uohr3hotetb4" path="res://models/train-track-straight.glb" id="1_bjxek"]
 
 [node name="track" type="Node3D"]
+script = ExtResource("1_6w8mq")
+
+[node name="SpawnTimer" type="Timer" parent="."]
 
 [node name="train-track-straight" parent="." instance=ExtResource("1_bjxek")]
 
@@ -26,3 +30,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
 
 [node name="train-track-straight8" parent="." instance=ExtResource("1_bjxek")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[connection signal="timeout" from="SpawnTimer" to="." method="on_spawn_timer_timeout"]

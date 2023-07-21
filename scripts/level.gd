@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 # Track settings
 @export var track_count: int = 5
@@ -6,11 +6,11 @@ extends Node
 @export var track_scene: PackedScene
 
 # Train settings
-@export_range (3, 8) var train_spawn_interval: int # per track
-@export var train_speed: float = 2.0
+@export_range (1, 10) var train_spawn_interval_min: int = 1 # per track in seconds
+@export_range (1, 10) var train_spawn_interval_max: int = 10 # per track in seconds
+@export var train_speed: float = 0.5
 
 @onready var tracks = $Tracks
-@onready var trains = $Trains
 
 func _ready():
-	$Tracks.build(track_count, track_spacing, track_scene)
+	tracks.build(track_count, track_spacing, track_scene, train_spawn_interval_min, train_spawn_interval_max, train_speed)

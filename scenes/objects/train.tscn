@@ -1,13 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://blqb6r5h3s5as"]
+[gd_scene load_steps=5 format=3 uid="uid://blqb6r5h3s5as"]
 
 [ext_resource type="PackedScene" uid="uid://dwabh6qnxlaas" path="res://scenes/objects/train-car-gondola.tscn" id="1_fry8e"]
 [ext_resource type="Script" path="res://scripts/train.gd" id="1_hgrcm"]
 [ext_resource type="PackedScene" uid="uid://bqemtn5axkqxn" path="res://scenes/objects/train-locomotive.tscn" id="2_x53fc"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vcgn1"]
+size = Vector3(15.5966, 0.0944538, 2.37378)
+
 [node name="train" type="Node3D"]
 script = ExtResource("1_hgrcm")
 
-[node name="train-car-gondola" parent="." instance=ExtResource("1_fry8e")]
+[node name="Gondola" parent="." instance=ExtResource("1_fry8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6924, 0, 0)
 
-[node name="train-locomotive" parent="." instance=ExtResource("2_x53fc")]
+[node name="Locomotive" parent="." instance=ExtResource("2_x53fc")]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6894, 1.84346, 0)
+shape = SubResource("BoxShape3D_vcgn1")
+
+[connection signal="body_entered" from="Area3D" to="." method="on_body_entered"]
