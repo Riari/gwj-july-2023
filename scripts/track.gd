@@ -34,6 +34,6 @@ func on_spawn_timer_timeout():
 
 func spawn_train(colour: Globals.Colour):
 	var train = train_scene.instantiate()
-	train.build(colour, train_direction, train_speed)
+	train.init(colour, train_direction, train_speed)
 
 	self.add_child(train)

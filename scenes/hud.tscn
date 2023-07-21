@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://dptt37oqe2nhi"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_ilyqu"]
+[ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="2_4hiq7"]
+[ext_resource type="PackedScene" uid="uid://dmb4kv1gi4gh6" path="res://scenes/crate-preview.tscn" id="3_pkhyh"]
+
+[sub_resource type="Gradient" id="Gradient_hsmrh"]
+offsets = PackedFloat32Array(0.440104, 0.463542, 0.638021, 0.666667)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_30geq"]
+gradient = SubResource("Gradient_hsmrh")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+repeat = 2
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_6eeyx"]
+
+[sub_resource type="World3D" id="World3D_u87as"]
+environment = ExtResource("2_4hiq7")
+camera_attributes = SubResource("CameraAttributesPhysical_6eeyx")
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ilyqu")
+
+[node name="CursorAttachments" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DiscardProgress" type="TextureProgressBar" parent="CursorAttachments"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 52.0
+offset_bottom = 52.0
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_30geq")
+
+[node name="NextCratePreview" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 98.0
+grow_horizontal = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="NextCratePreview"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="SubViewport" type="SubViewport" parent="NextCratePreview/SubViewportContainer"]
+own_world_3d = true
+world_3d = SubResource("World3D_u87as")
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+size = Vector2i(64, 64)
+render_target_clear_mode = 2
+render_target_update_mode = 4
+
+[node name="Scene" parent="NextCratePreview/SubViewportContainer/SubViewport" instance=ExtResource("3_pkhyh")]
+
+[node name="ProgressBar" type="ProgressBar" parent="NextCratePreview"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 64.0
+offset_right = 58.0
+offset_bottom = 70.0
+show_percentage = false

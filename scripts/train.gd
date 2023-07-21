@@ -24,7 +24,7 @@ var current_speed: float
 
 @onready var gondola = $Gondola
 
-func build(colour: Globals.Colour, direction: Globals.TrainDirection, speed: float):
+func init(colour: Globals.Colour, direction: Globals.TrainDirection, speed: float):
 	var locomotive_mesh = get_node("Locomotive/Base_B_001")
 	var gondola_mesh = get_node("Gondola/GondolaCar")
 

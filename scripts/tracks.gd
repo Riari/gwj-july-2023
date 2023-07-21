@@ -1,6 +1,6 @@
 extends Node3D
 
-func build(track_count: int, track_spacing: int, track_scene: PackedScene, spawn_interval_min: int, spawn_interval_max: int, train_speed: float):
+func init(track_count: int, track_spacing: int, track_scene: PackedScene, spawn_interval_min: int, spawn_interval_max: int, train_speed: float):
 	for n in track_count:
 		var track = track_scene.instantiate()
 		self.add_child(track)

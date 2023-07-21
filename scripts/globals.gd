@@ -8,9 +8,7 @@ const EnabledColours = [
 	Colour.BLUE,
 	Colour.GREEN,
 	Colour.RED,
-	Colour.BLACK,
 	Colour.ORANGE,
-	Colour.WHITE,
 ]
 
 const ColourLabels = {

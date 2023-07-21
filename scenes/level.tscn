@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgee46s1d1s1o"]
+[gd_scene load_steps=15 format=3 uid="uid://cgee46s1d1s1o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_grat0"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="2_xteff"]
@@ -9,6 +9,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cci0jso63rdnr" path="res://models/grass2.res" id="5_5djm7"]
 [ext_resource type="PackedScene" uid="uid://cuo8hdm3d28q6" path="res://scenes/objects/track.tscn" id="5_cq5sp"]
 [ext_resource type="Script" path="res://scripts/crates.gd" id="9_o34el"]
+[ext_resource type="PackedScene" uid="uid://dptt37oqe2nhi" path="res://scenes/hud.tscn" id="10_eqx6v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a55yf"]
 size = Vector3(1, 0.00470821, 1)
@@ -30,15 +31,19 @@ buffer = PackedFloat32Array(-0.27826, 0, -0.747185, -37.2434, 0, 0.797317, 0, 0,
 [node name="Level" type="Node3D"]
 process_mode = 1
 script = ExtResource("1_grat0")
+track_spacing = 10
 track_scene = ExtResource("5_cq5sp")
-train_spawn_interval_min = 10
+train_spawn_interval_min = 5
+train_spawn_interval_max = 10
 train_speed = 8.0
 
+[node name="HUD" parent="." instance=ExtResource("10_eqx6v")]
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, -0.939693, 0.34202, 0, 0.34202, 0.939693, -1, 4.10753e-08, -1.49502e-08, 21, 39, 0)
+transform = Transform3D(-4.37114e-08, -0.97437, 0.224951, 0, 0.224951, 0.97437, -1, 4.25911e-08, -9.83292e-09, 23, 82, 0)
 current = true
-fov = 49.0
-size = 16.0
+fov = 26.0
+size = 39.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, 0.25, -0.433013, 0, 0.866025, 0.5, 0.5, -0.433013, 0.75, -2, 1, 2)
@@ -88,3 +93,8 @@ size = Vector3(1, 1, 73)
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 size = Vector3(1, 1, 73)
+
+[connection signal="discard_started" from="Crates" to="HUD" method="on_crate_discard_started"]
+[connection signal="discard_stopped" from="Crates" to="HUD" method="on_crate_discard_stopped"]
+[connection signal="drop_cooldown_started" from="Crates" to="HUD" method="on_crate_drop_cooldown_started"]
+[connection signal="next_colour_picked" from="Crates" to="HUD" method="on_next_crate_colour_picked"]
