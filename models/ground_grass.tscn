@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd4cqgmybk5to"]
+
+[ext_resource type="PackedScene" uid="uid://c4f3uge501p7i" path="res://models/nature/ground_grass.glb" id="1_r58lu"]
+[ext_resource type="ArrayMesh" uid="uid://dlfd88cdy6mbg" path="res://models/ground_grass.tres" id="2_yfoe0"]
+
+[node name="ground_grass" instance=ExtResource("1_r58lu")]
+
+[node name="ground_grass2" parent="tmpParent" index="0"]
+mesh = ExtResource("2_yfoe0")

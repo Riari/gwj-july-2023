@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuo8hdm3d28q6"]
+
+[ext_resource type="PackedScene" uid="uid://uohr3hotetb4" path="res://models/train-track-straight.glb" id="1_bjxek"]
+
+[node name="track" type="Node3D"]
+
+[node name="train-track-straight" parent="." instance=ExtResource("1_bjxek")]
+
+[node name="train-track-straight2" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="train-track-straight3" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="train-track-straight4" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)
+
+[node name="train-track-straight5" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, 0)
+
+[node name="train-track-straight6" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+
+[node name="train-track-straight7" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+
+[node name="train-track-straight8" parent="." instance=ExtResource("1_bjxek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)

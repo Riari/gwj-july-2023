@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b2by6q8c7kbw3"]
+
+[ext_resource type="Texture2D" uid="uid://bbn0ylkcca3l6" path="res://textures/trains/Train_Orange_001.png" id="1_de34f"]
+
+[resource]
+resource_name = "Train_001"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_de34f")
+roughness = 0.6

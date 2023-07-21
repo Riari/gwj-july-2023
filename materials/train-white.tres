@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bth0t88gjonfq"]
+
+[ext_resource type="Texture2D" uid="uid://0jrytg1t823o" path="res://textures/trains/Train_White_001.png" id="1_jbgsk"]
+
+[resource]
+resource_name = "Train_001"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_jbgsk")
+roughness = 0.6
