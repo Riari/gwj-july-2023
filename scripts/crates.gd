@@ -99,7 +99,10 @@ func discard_crate():
 	discard_timer = 0.0
 	discard_finished.emit(current_crate)
 	current_crate.queue_free()
-	queue_next_colour()
+
+	if next_colour == last_discarded_colour:
+		queue_next_colour()
+
 	spawn_next_crate()
 
 func calculate_crate_position(mouse_position: Vector2):

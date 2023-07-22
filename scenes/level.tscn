@@ -36,9 +36,10 @@ process_mode = 1
 script = ExtResource("1_grat0")
 track_spacing = 10
 track_scene = ExtResource("5_cq5sp")
-train_spawn_interval_min = 5
-train_spawn_interval_max = 10
-train_speed = 8.0
+train_spawn_interval_min = 7
+train_spawn_interval_max = 11
+train_speed = 10.0
+crate_drop_cooldown = 0.65
 
 [node name="HUD" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_eqx6v")]
 camera = NodePath("../Camera3D")
@@ -95,22 +96,34 @@ collision_layer = 2
 collision_mask = 2
 size = Vector3(100.296, 1, 100.123)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="_ViewportGuides" type="Node3D" parent="."]
+visible = false
+
+[node name="Top" type="CSGBox3D" parent="_ViewportGuides"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 0)
 size = Vector3(1, 1, 73)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+[node name="Bottom" type="CSGBox3D" parent="_ViewportGuides"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 size = Vector3(1, 1, 73)
 
 [node name="ScoreManager" type="Node" parent="."]
 script = ExtResource("11_rxrkf")
 
-[node name="SoundEffects" type="AudioStreamPlayer3D" parent="."]
-attenuation_model = 3
-volume_db = 5.0
-panning_strength = 3.0
+[node name="SoundEffects" type="Node" parent="."]
 script = ExtResource("12_dikfb")
+
+[node name="Slot1" type="AudioStreamPlayer3D" parent="SoundEffects"]
+attenuation_model = 3
+panning_strength = 3.0
+
+[node name="Slot2" type="AudioStreamPlayer3D" parent="SoundEffects"]
+attenuation_model = 3
+panning_strength = 3.0
+
+[node name="Slot3" type="AudioStreamPlayer3D" parent="SoundEffects"]
+attenuation_model = 3
+panning_strength = 3.0
 
 [node name="TrainMotion" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("13_f0uf6")
@@ -122,6 +135,7 @@ autoplay = true
 [connection signal="train_received_crate" from="Tracks" to="ScoreManager" method="on_train_received_crate"]
 [connection signal="train_received_crate" from="Tracks" to="SoundEffects" method="on_train_received_crate"]
 [connection signal="crate_collided_with" from="Crates" to="SoundEffects" method="on_crate_collided_with_body"]
+[connection signal="discard_cancelled" from="Crates" to="HUD" method="on_crate_discard_cancelled"]
 [connection signal="discard_finished" from="Crates" to="ScoreManager" method="on_crate_discarded"]
 [connection signal="discard_started" from="Crates" to="HUD" method="on_crate_discard_started"]
 [connection signal="drop_cooldown_started" from="Crates" to="HUD" method="on_crate_drop_cooldown_started"]

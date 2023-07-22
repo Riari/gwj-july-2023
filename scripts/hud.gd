@@ -53,6 +53,10 @@ func on_crate_discard_stopped():
 	cursor_attachments.visible = false
 	stop_discarding()
 
+func on_crate_discard_cancelled():
+	cursor_attachments.visible = false
+	stop_discarding()
+
 func stop_discarding():
 	is_discarding = false
 	discard_timer = 0.0

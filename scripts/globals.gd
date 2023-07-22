@@ -6,7 +6,7 @@ enum TrainDirection {NORTH, SOUTH}
 
 const EnabledColours = [
 	Colour.BLUE,
-	Colour.GREEN,
+	# Colour.GREEN,
 	Colour.RED,
 	Colour.ORANGE,
 ]
