@@ -21,12 +21,14 @@ var last_discarded_colour: Globals.Colour
 
 signal drop_cooldown_started
 signal discard_started
-signal discard_stopped
+signal discard_cancelled
+signal discard_finished(crate)
 signal next_colour_picked(colour)
 
 const RAY_LENGTH = 1000.0
 
 func _ready():
+	queue_next_colour()
 	spawn_next_crate()
 
 func _input(event):
@@ -39,7 +41,7 @@ func _input(event):
 				discard_started.emit()
 			else:
 				discard_timer = 0.0
-				discard_stopped.emit()
+				discard_cancelled.emit()
 
 func _process(delta):
 	if is_discarding and discard_timer < discard_time:
@@ -66,6 +68,7 @@ func init(crate_discard_delay: float, crate_drop_cooldown: float):
 func spawn_next_crate():
 	last_crate_was_discarded = false
 	current_crate = crate_scene.instantiate()
+	current_crate.position.y = 100
 	self.add_child(current_crate)
 	current_crate.set_colour(next_colour)
 	last_spawned_colour = next_colour
@@ -88,9 +91,9 @@ func drop_crate():
 func discard_crate():
 	last_discarded_colour = last_spawned_colour
 	last_crate_was_discarded = true
-	current_crate.queue_free()
 	discard_timer = 0.0
-	discard_stopped.emit()
+	discard_finished.emit(current_crate)
+	current_crate.queue_free()
 	queue_next_colour()
 	spawn_next_crate()
 

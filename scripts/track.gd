@@ -10,6 +10,8 @@ var train_speed: float
 
 var rng = RandomNumberGenerator.new()
 
+signal train_received_crate(train, crate, total_received)
+
 func set_spawn_interval(interval_min: int, interval_max: int):
 	spawn_interval_min = interval_min
 	spawn_interval_max = interval_max
@@ -32,8 +34,13 @@ func on_spawn_timer_timeout():
 	restart_spawn_timer()
 	spawn_train(Globals.get_random_colour())
 
+func on_train_received_crate(train: Node3D, crate: RigidBody3D, total_received: int):
+	train_received_crate.emit(train, crate, total_received)
+
 func spawn_train(colour: Globals.Colour):
 	var train = train_scene.instantiate()
 	train.init(colour, train_direction, train_speed)
+
+	train.received_crate.connect(on_train_received_crate)
 
 	self.add_child(train)

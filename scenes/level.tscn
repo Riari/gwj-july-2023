@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgee46s1d1s1o"]
+[gd_scene load_steps=16 format=3 uid="uid://cgee46s1d1s1o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_grat0"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="2_xteff"]
@@ -10,9 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://cuo8hdm3d28q6" path="res://scenes/objects/track.tscn" id="5_cq5sp"]
 [ext_resource type="Script" path="res://scripts/crates.gd" id="9_o34el"]
 [ext_resource type="PackedScene" uid="uid://dptt37oqe2nhi" path="res://scenes/hud.tscn" id="10_eqx6v"]
+[ext_resource type="Script" path="res://scripts/score-manager.gd" id="11_rxrkf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a55yf"]
-size = Vector3(1, 0.00470821, 1)
+size = Vector3(1, 0.01, 1)
 
 [sub_resource type="MultiMesh" id="MultiMesh_vtxl3"]
 transform_format = 1
@@ -37,7 +38,8 @@ train_spawn_interval_min = 5
 train_spawn_interval_max = 10
 train_speed = 8.0
 
-[node name="HUD" parent="." instance=ExtResource("10_eqx6v")]
+[node name="HUD" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_eqx6v")]
+camera = NodePath("../Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, -0.97437, 0.224951, 0, 0.224951, 0.97437, -1, 4.25911e-08, -9.83292e-09, 23, 82, 0)
@@ -60,6 +62,11 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_a55yf")
+
+[node name="Area3D" type="Area3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Area3D"]
 shape = SubResource("BoxShape3D_a55yf")
 
 [node name="Grass" type="MultiMeshInstance3D" parent="."]
@@ -94,7 +101,14 @@ size = Vector3(1, 1, 73)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 size = Vector3(1, 1, 73)
 
+[node name="ScoreManager" type="Node" parent="."]
+script = ExtResource("11_rxrkf")
+
+[connection signal="body_entered" from="Ground/Area3D" to="ScoreManager" method="on_ground_received_body"]
+[connection signal="train_received_crate" from="Tracks" to="ScoreManager" method="on_train_received_crate"]
+[connection signal="discard_finished" from="Crates" to="ScoreManager" method="on_crate_discarded"]
 [connection signal="discard_started" from="Crates" to="HUD" method="on_crate_discard_started"]
-[connection signal="discard_stopped" from="Crates" to="HUD" method="on_crate_discard_stopped"]
 [connection signal="drop_cooldown_started" from="Crates" to="HUD" method="on_crate_drop_cooldown_started"]
 [connection signal="next_colour_picked" from="Crates" to="HUD" method="on_next_crate_colour_picked"]
+[connection signal="points_scored" from="ScoreManager" to="HUD" method="on_points_scored"]
+[connection signal="total_score_updated" from="ScoreManager" to="HUD" method="on_total_score_updated"]
