@@ -114,7 +114,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_p8gen")
 
-[node name="train-car-gondola" type="StaticBody3D"]
+[node name="train-car-gondola" type="StaticBody3D" groups=["train"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_6k34f")

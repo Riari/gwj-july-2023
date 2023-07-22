@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cgee46s1d1s1o"]
+[gd_scene load_steps=18 format=3 uid="uid://cgee46s1d1s1o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_grat0"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="2_xteff"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://scripts/crates.gd" id="9_o34el"]
 [ext_resource type="PackedScene" uid="uid://dptt37oqe2nhi" path="res://scenes/hud.tscn" id="10_eqx6v"]
 [ext_resource type="Script" path="res://scripts/score-manager.gd" id="11_rxrkf"]
+[ext_resource type="Script" path="res://scenes/sound-effects-level.gd" id="12_dikfb"]
+[ext_resource type="AudioStream" uid="uid://dm8rmgxxf753w" path="res://audio/effect_loop_train_motion.mp3" id="13_f0uf6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a55yf"]
 size = Vector3(1, 0.01, 1)
@@ -59,7 +61,7 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 mesh = ExtResource("3_qg4yx")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" groups=["ground"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_a55yf")
@@ -104,8 +106,22 @@ size = Vector3(1, 1, 73)
 [node name="ScoreManager" type="Node" parent="."]
 script = ExtResource("11_rxrkf")
 
+[node name="SoundEffects" type="AudioStreamPlayer3D" parent="."]
+attenuation_model = 3
+volume_db = 5.0
+panning_strength = 3.0
+script = ExtResource("12_dikfb")
+
+[node name="TrainMotion" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("13_f0uf6")
+attenuation_model = 3
+volume_db = -10.0
+autoplay = true
+
 [connection signal="body_entered" from="Ground/Area3D" to="ScoreManager" method="on_ground_received_body"]
 [connection signal="train_received_crate" from="Tracks" to="ScoreManager" method="on_train_received_crate"]
+[connection signal="train_received_crate" from="Tracks" to="SoundEffects" method="on_train_received_crate"]
+[connection signal="crate_collided_with" from="Crates" to="SoundEffects" method="on_crate_collided_with_body"]
 [connection signal="discard_finished" from="Crates" to="ScoreManager" method="on_crate_discarded"]
 [connection signal="discard_started" from="Crates" to="HUD" method="on_crate_discard_started"]
 [connection signal="drop_cooldown_started" from="Crates" to="HUD" method="on_crate_drop_cooldown_started"]

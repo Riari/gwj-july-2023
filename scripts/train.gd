@@ -68,13 +68,11 @@ func despawn():
 # Triggers when an object enters the gondola car
 func on_body_entered(body: Node3D):
 	var id = body.get_instance_id()
-	if crates_received.has(id) or not body.get_meta("is_crate"):
+	if crates_received.has(id) or not body.is_in_group("crate"):
 		return
 
 	crates_received[id] = true
-	body.freeze = true
 	body.reparent(gondola)
-
-	print("Received crate " + str(id))
+	body.freeze = true
 
 	received_crate.emit(self, body, crates_received.size())

@@ -33,7 +33,6 @@ func on_train_received_crate(train: Node3D, crate: RigidBody3D, total_received: 
 
 func award(points_to_award: int, position: Vector3):
 	total_score += points_to_award
-	print("Awarded " + str(points_to_award) + " points")
 	points_scored.emit(points_to_award, position)
 	total_score_updated.emit(total_score)
 
@@ -43,7 +42,7 @@ func on_crate_discarded(crate: RigidBody3D):
 
 func on_ground_received_body(body: Node3D):
 	var id = body.get_instance_id()
-	if crates_on_ground.has(id) or not body.get_meta("is_crate"):
+	if crates_on_ground.has(id) or not body.is_in_group("crate"):
 		return
 
 	crates_on_ground[id] = true

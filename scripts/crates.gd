@@ -24,6 +24,7 @@ signal discard_started
 signal discard_cancelled
 signal discard_finished(crate)
 signal next_colour_picked(colour)
+signal crate_collided_with(crate, body, collision_count)
 
 const RAY_LENGTH = 1000.0
 
@@ -71,8 +72,12 @@ func spawn_next_crate():
 	current_crate.position.y = 100
 	self.add_child(current_crate)
 	current_crate.set_colour(next_colour)
+	current_crate.collided_with.connect(on_crate_collided_with)
 	last_spawned_colour = next_colour
 	queue_next_colour()
+
+func on_crate_collided_with(crate: RigidBody3D, body: Node3D, collision_count: int):
+	crate_collided_with.emit(crate, body, collision_count)
 
 func queue_next_colour():
 	next_colour = Globals.get_random_colour()
