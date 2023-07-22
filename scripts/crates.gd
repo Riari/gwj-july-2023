@@ -14,6 +14,9 @@ var is_drop_cooldown_active = false
 var drop_cooldown_time: float
 var drop_cooldown_timer = 0.0
 
+var spawn_mode: int
+var track_count: int
+
 var next_colour: Globals.Colour
 var last_spawned_colour: Globals.Colour
 var last_crate_was_discarded = false
@@ -27,10 +30,6 @@ signal next_colour_picked(colour)
 signal crate_collided_with(crate, body, collision_count)
 
 const RAY_LENGTH = 1000.0
-
-func _ready():
-	queue_next_colour()
-	spawn_next_crate()
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -62,9 +61,14 @@ func _process(delta):
 	if current_crate.freeze:
 		current_crate.position = calculate_crate_position(get_viewport().get_mouse_position())
 
-func init(crate_discard_delay: float, crate_drop_cooldown: float):
+func init(train_spawn_mode: int, num_tracks: int, crate_discard_delay: float, crate_drop_cooldown: float):
+	spawn_mode = train_spawn_mode
+	track_count = num_tracks
 	discard_time = crate_discard_delay
 	drop_cooldown_time = crate_drop_cooldown
+
+	queue_next_colour()
+	spawn_next_crate()
 
 func spawn_next_crate():
 	last_crate_was_discarded = false
@@ -80,7 +84,8 @@ func on_crate_collided_with(crate: RigidBody3D, body: Node3D, collision_count: i
 	crate_collided_with.emit(crate, body, collision_count)
 
 func queue_next_colour():
-	next_colour = Globals.get_random_colour()
+	var colour = Globals.get_random_colour(track_count - 1) if spawn_mode == 0 else Globals.get_random_colour()
+	next_colour = colour
 
 	if last_crate_was_discarded and next_colour == last_discarded_colour:
 		queue_next_colour()

@@ -34,11 +34,13 @@ buffer = PackedFloat32Array(-0.27826, 0, -0.747185, -37.2434, 0, 0.797317, 0, 0,
 [node name="Level" type="Node3D"]
 process_mode = 1
 script = ExtResource("1_grat0")
-track_spacing = 10
+track_count = 3
+track_spacing = 12
 track_scene = ExtResource("5_cq5sp")
+train_spawn_initial_interval_min = 4
 train_spawn_interval_min = 7
 train_spawn_interval_max = 11
-train_speed = 10.0
+train_speed = 8.0
 crate_drop_cooldown = 0.65
 
 [node name="HUD" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("10_eqx6v")]

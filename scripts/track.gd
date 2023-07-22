@@ -3,6 +3,10 @@ extends Node3D
 @onready var spawn_timer: Timer = $SpawnTimer
 @export var train_scene: PackedScene = preload("res://scenes/objects/train.tscn")
 
+var has_spawned = false
+var spawn_mode: int
+var spawn_colour: Globals.Colour
+var spawn_initial_interval_min: int
 var spawn_interval_min: int
 var spawn_interval_max: int
 var train_direction: Globals.TrainDirection
@@ -12,7 +16,14 @@ var rng = RandomNumberGenerator.new()
 
 signal train_received_crate(train, crate, total_received)
 
-func set_spawn_interval(interval_min: int, interval_max: int):
+func set_spawn_mode(mode: int, track_index: int):
+	spawn_mode = mode
+
+	if mode == 0: # Fixed
+		spawn_colour = Globals.EnabledColours[track_index]
+
+func set_spawn_interval(initial_interval_min: int, interval_min: int, interval_max: int):
+	spawn_initial_interval_min = initial_interval_min
 	spawn_interval_min = interval_min
 	spawn_interval_max = interval_max
 
@@ -27,12 +38,13 @@ func pause_spawn_timer():
 
 func restart_spawn_timer():
 	spawn_timer.paused = false
-	spawn_timer.wait_time = float(rng.randf_range(spawn_interval_min, spawn_interval_max))
+	var interval_min = spawn_interval_min if has_spawned else spawn_initial_interval_min
+	spawn_timer.wait_time = float(rng.randf_range(interval_min, spawn_interval_max))
 	spawn_timer.start()
 
 func on_spawn_timer_timeout():
 	restart_spawn_timer()
-	spawn_train(Globals.get_random_colour())
+	spawn_train(Globals.get_random_colour() if spawn_mode == 1 else spawn_colour)
 
 func on_train_received_crate(train: Node3D, crate: RigidBody3D, total_received: int):
 	train_received_crate.emit(train, crate, total_received)
@@ -44,3 +56,5 @@ func spawn_train(colour: Globals.Colour):
 	train.received_crate.connect(on_train_received_crate)
 
 	self.add_child(train)
+
+	has_spawned = true

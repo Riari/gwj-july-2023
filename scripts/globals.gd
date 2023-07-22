@@ -6,9 +6,11 @@ enum TrainDirection {NORTH, SOUTH}
 
 const EnabledColours = [
 	Colour.BLUE,
-	# Colour.GREEN,
 	Colour.RED,
 	Colour.ORANGE,
+	Colour.GREEN,
+	Colour.BLACK,
+	Colour.WHITE,
 ]
 
 const ColourLabels = {
@@ -23,5 +25,5 @@ const ColourLabels = {
 
 static var rng = RandomNumberGenerator.new()
 
-static func get_random_colour():
-	return EnabledColours[rng.randi_range(0, EnabledColours.size() - 1)]
+static func get_random_colour(range_max = EnabledColours.size() - 1):
+	return EnabledColours[rng.randi_range(0, range_max)]
