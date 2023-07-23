@@ -175,4 +175,5 @@ stream = ExtResource("15_vcm27")
 [connection signal="next_colour_picked" from="Crates" to="HUD" method="on_next_crate_colour_picked"]
 [connection signal="medal_won" from="ScoreManager" to="HUD" method="on_medal_won"]
 [connection signal="points_scored" from="ScoreManager" to="HUD" method="on_points_scored"]
+[connection signal="stats_updated" from="ScoreManager" to="HUD" method="on_stats_updated"]
 [connection signal="total_score_updated" from="ScoreManager" to="HUD" method="on_total_score_updated"]

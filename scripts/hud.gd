@@ -22,6 +22,7 @@ extends Control
 @onready var node_icon_gold = $LevelEndOverlay/Panel/Scores/IconGold
 @onready var node_label_gold = $LevelEndOverlay/Panel/Scores/Gold
 @onready var node_your_score_value = $LevelEndOverlay/Panel/Scores/YourScoreValue
+@onready var node_stats = $LevelEndOverlay/Panel/Stats/Label
 
 @export var camera: Camera3D
 
@@ -176,3 +177,12 @@ func on_medal_won(medal: Globals.Medal):
 
 	if medal == Globals.Medal.GOLD:
 		node_icon_gold.modulate = Color(1, 1, 1, 1)
+
+func on_stats_updated(stats: Dictionary):
+	node_stats.text = "Stats\n\n" \
+		+ "Ground drops:  " + str(stats["ground_drops"]) + "\n" \
+		+ "Incorrect drops:  " + str(stats["incorrect_drops"]) + "\n" \
+		+ "Correct drops:  " + str(stats["correct_drops"]) + "\n" \
+		+ "Total combos:  " + str(stats["total_combos"]) + "\n" \
+		+ "Discards:  " + str(stats["discards"]) + "\n" \
+		+ "Total drops:  " + str(stats["total_drops"])
