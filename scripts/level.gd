@@ -5,6 +5,8 @@ extends Node3D
 @export var countdown: int = 3
 # Time limit (in seconds) before the level ends (trains stop spawning and crates can't be dropped)
 @export var time_limit: int = 45
+# Whether it's possible to continue (i.e. there's another level)
+@export var continue_enabled: bool = true
 
 ## Track settings
 # How many tracks to spawn. Note: when using the "Fixed" spawn mode below, this MUST match the number of colours enabled in globals.gd!
@@ -19,9 +21,11 @@ extends Node3D
 @export_enum ("Fixed", "Random") var train_spawn_mode: int = 0
 # The minimum spawn interval per track in seconds, for the first spawn only
 @export_range (1, 20) var train_spawn_initial_interval_min: int = 1
+# The minimum spawn interval per track in seconds, for the first spawn only
+@export_range (1, 20) var train_spawn_initial_interval_max: int = 3
 # The minimum spawn interval per track in seconds, for all spawns after the first
 @export_range (1, 20) var train_spawn_interval_min: int = 1
-# The maximum spawn interval per track in seconds
+# The maximum spawn interval per track in seconds, for all spawns after the first
 @export_range (1, 20) var train_spawn_interval_max: int = 20
 # The speed of spawned trains
 @export var train_speed: float = 7
@@ -46,38 +50,46 @@ extends Node3D
 # For crates dropped onto the ground
 @export var points_miss: int = -5
 
-@onready var hud = $HUD
-@onready var tracks = $Tracks
-@onready var crates = $Crates
-@onready var score_manager = $ScoreManager
+@onready var node_hud = $HUD
+@onready var node_tracks = $Tracks
+@onready var node_crates = $Crates
+@onready var node_score_manager = $ScoreManager
+@onready var node_music = $Music
+@onready var node_music_level_end = $MusicLevelEnd
+
+signal request_exit
+signal request_try_again
+signal request_continue
 
 func _ready():
-	hud.init(
+	node_hud.init(
 		countdown,
 		time_limit,
+		continue_enabled,
 		crate_discard_delay,
 		crate_drop_cooldown
 	)
 
-	tracks.init(
+	node_tracks.init(
 		track_count,
 		track_spacing,
 		track_scene,
 		train_spawn_mode,
 		train_spawn_initial_interval_min,
+		train_spawn_initial_interval_max,
 		train_spawn_interval_min,
 		train_spawn_interval_max,
 		train_speed
 	)
 
-	crates.init(
+	node_crates.init(
 		train_spawn_mode,
 		track_count,
 		crate_discard_delay,
 		crate_drop_cooldown
 	)
 
-	score_manager.init(
+	node_score_manager.init(
 		points_correct_drop,
 		points_combo_two,
 		points_combo_three,
@@ -85,3 +97,16 @@ func _ready():
 		points_incorrect_drop,
 		points_miss
 	)
+
+func on_time_out():
+	node_music.stop()
+	node_music_level_end.play()
+
+func on_button_exit_pressed():
+	request_exit.emit()
+
+func on_button_try_again_pressed():
+	request_try_again.emit()
+
+func on_button_continue_pressed():
+	request_continue.emit()

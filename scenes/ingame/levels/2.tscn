@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1oo0nd14qaln"]
+[gd_scene load_steps=3 format=3 uid="uid://b1oo0nd14qaln"]
 
 [ext_resource type="PackedScene" uid="uid://cgee46s1d1s1o" path="res://scenes/ingame/level.tscn" id="1_74mfn"]
+[ext_resource type="Script" path="res://scripts/level-container.gd" id="1_lt73s"]
 
 [node name="2" type="Node3D"]
+script = ExtResource("1_lt73s")
 
 [node name="Level" parent="." instance=ExtResource("1_74mfn")]
+continue_enabled = false
 track_count = 5
+
+[connection signal="request_exit" from="Level" to="." method="on_request_exit"]
+[connection signal="request_try_again" from="Level" to="." method="on_request_try_again"]

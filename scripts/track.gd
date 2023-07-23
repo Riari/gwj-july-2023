@@ -7,6 +7,7 @@ var has_spawned = false
 var spawn_mode: int
 var spawn_colour: Globals.Colour
 var spawn_initial_interval_min: int
+var spawn_initial_interval_max: int
 var spawn_interval_min: int
 var spawn_interval_max: int
 var train_direction: Globals.TrainDirection
@@ -22,8 +23,9 @@ func set_spawn_mode(mode: int, track_index: int):
 	if mode == 0: # Fixed
 		spawn_colour = Globals.EnabledColours[track_index]
 
-func set_spawn_interval(initial_interval_min: int, interval_min: int, interval_max: int):
+func set_spawn_interval(initial_interval_min: int, initial_interval_max: int, interval_min: int, interval_max: int):
 	spawn_initial_interval_min = initial_interval_min
+	spawn_initial_interval_max = initial_interval_max
 	spawn_interval_min = interval_min
 	spawn_interval_max = interval_max
 
@@ -39,7 +41,8 @@ func pause_spawn_timer():
 func restart_spawn_timer():
 	spawn_timer.paused = false
 	var interval_min = spawn_interval_min if has_spawned else spawn_initial_interval_min
-	spawn_timer.wait_time = float(rng.randf_range(interval_min, spawn_interval_max))
+	var interval_max = spawn_interval_max if has_spawned else spawn_initial_interval_max
+	spawn_timer.wait_time = float(rng.randf_range(interval_min, interval_max))
 	spawn_timer.start()
 
 func on_spawn_timer_timeout():

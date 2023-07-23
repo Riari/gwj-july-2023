@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dptt37oqe2nhi"]
+[gd_scene load_steps=18 format=3 uid="uid://dptt37oqe2nhi"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_ilyqu"]
 [ext_resource type="Theme" uid="uid://dqyfggoaaux27" path="res://default_theme.tres" id="1_vpm3y"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="2_4hiq7"]
 [ext_resource type="PackedScene" uid="uid://dmb4kv1gi4gh6" path="res://scenes/crate-preview.tscn" id="3_pkhyh"]
+[ext_resource type="AudioStream" uid="uid://bq6oeaxy8ng8y" path="res://audio/ui_score_1.wav" id="5_f80t4"]
+[ext_resource type="AudioStream" uid="uid://cxinxd75lourv" path="res://audio/ui_score_2.wav" id="6_45mft"]
+[ext_resource type="AudioStream" uid="uid://3ky8y3tabjpc" path="res://audio/ui_score_3.wav" id="7_w6ss6"]
 
 [sub_resource type="Gradient" id="Gradient_hsmrh"]
 offsets = PackedFloat32Array(0.440104, 0.463542, 0.638021, 0.666667)
@@ -43,6 +46,9 @@ colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.733333, 0, 0, 0, 0.733333)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_h8vtg"]
 gradient = SubResource("Gradient_vymny")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tu5a"]
+bg_color = Color(0, 0, 0, 0.329412)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -248,7 +254,106 @@ text = "[b]3...[/b]"
 fit_content = true
 autowrap_mode = 0
 
+[node name="LevelEndOverlay" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8tu5a")
+
+[node name="Panel" type="Panel" parent="LevelEndOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -191.0
+offset_right = 258.0
+offset_bottom = 191.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LevelEndOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = 16.0
+offset_right = 69.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[b]Time's up![/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ButtonExit" type="Button" parent="LevelEndOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -55.0
+offset_right = 166.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "Exit to menu"
+
+[node name="ButtonTryAgain" type="Button" parent="LevelEndOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -55.0
+offset_right = 75.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Try again"
+
+[node name="ButtonContinue" type="Button" parent="LevelEndOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -55.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Continue"
+
 [node name="ScorePopups" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="ScoreSounds" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score1" type="AudioStreamPlayer" parent="ScoreSounds"]
+stream = ExtResource("5_f80t4")
+
+[node name="Score2" type="AudioStreamPlayer" parent="ScoreSounds"]
+stream = ExtResource("6_45mft")
+
+[node name="Score3" type="AudioStreamPlayer" parent="ScoreSounds"]
+stream = ExtResource("7_w6ss6")
+
+[connection signal="pressed" from="LevelEndOverlay/Panel/ButtonExit" to="." method="on_button_exit_pressed"]
+[connection signal="pressed" from="LevelEndOverlay/Panel/ButtonTryAgain" to="." method="on_button_try_again_pressed"]
+[connection signal="pressed" from="LevelEndOverlay/Panel/ButtonContinue" to="." method="on_button_continue_pressed"]

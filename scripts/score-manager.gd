@@ -4,7 +4,7 @@ var points = {} # Score table
 var total_score = 0
 var crates_on_ground = {}
 
-signal points_scored(points, world_position)
+signal points_scored(points, world_position, combo)
 signal total_score_updated(score)
 
 func init(points_correct_drop: int, points_combo_two: int, points_combo_three: int, points_discard: int, points_incorrect_drop: int, points_miss: int):
@@ -29,16 +29,16 @@ func on_train_received_crate(train: Node3D, crate: RigidBody3D, total_received: 
 		points_to_award = points["incorrect_drop"]
 
 	if points_to_award != 0:
-		award(points_to_award, crate.global_position)
+		award(points_to_award, crate.global_position, total_received)
 
-func award(points_to_award: int, position: Vector3):
+func award(points_to_award: int, position: Vector3, combo: int):
 	total_score += points_to_award
-	points_scored.emit(points_to_award, position)
+	points_scored.emit(points_to_award, position, combo)
 	total_score_updated.emit(total_score)
 
 func on_crate_discarded(crate: RigidBody3D):
 	if points["discard"] != 0:
-		award(points["discard"], crate.global_position)
+		award(points["discard"], crate.global_position, 0)
 
 func on_ground_received_body(body: Node3D):
 	var id = body.get_instance_id()
@@ -48,4 +48,4 @@ func on_ground_received_body(body: Node3D):
 	crates_on_ground[id] = true
 
 	if points["miss"] != 0:
-		award(points["miss"], body.global_position)
+		award(points["miss"], body.global_position, 0)

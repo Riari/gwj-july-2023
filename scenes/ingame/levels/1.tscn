@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://jkceycbdav88"]
+[gd_scene load_steps=4 format=3 uid="uid://cktnymc4yku8j"]
 
-[ext_resource type="PackedScene" uid="uid://cgee46s1d1s1o" path="res://scenes/ingame/level.tscn" id="1_60mth"]
+[ext_resource type="Script" path="res://scripts/level-container.gd" id="1_3f21u"]
+[ext_resource type="PackedScene" uid="uid://cgee46s1d1s1o" path="res://scenes/ingame/level.tscn" id="1_xdci6"]
+[ext_resource type="PackedScene" uid="uid://b1oo0nd14qaln" path="res://scenes/ingame/levels/2.tscn" id="2_kgfc2"]
 
 [node name="1" type="Node3D"]
+script = ExtResource("1_3f21u")
+scene_next_level = ExtResource("2_kgfc2")
 
-[node name="Level" parent="." instance=ExtResource("1_60mth")]
+[node name="Level" parent="." instance=ExtResource("1_xdci6")]
+time_limit = 3
+
+[connection signal="request_continue" from="Level" to="." method="on_request_continue"]
+[connection signal="request_exit" from="Level" to="." method="on_request_exit"]
+[connection signal="request_try_again" from="Level" to="." method="on_request_try_again"]

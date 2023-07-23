@@ -10,11 +10,17 @@ extends Control
 @onready var node_countdown_overlay = $CountdownOverlay
 @onready var node_countdown_time = $CountdownOverlay/RichTextLabel
 @onready var node_score_popups = $ScorePopups
+@onready var node_sound_score_1 = $ScoreSounds/Score1
+@onready var node_sound_score_2 = $ScoreSounds/Score2
+@onready var node_sound_score_3 = $ScoreSounds/Score3
+@onready var node_level_end_overlay = $LevelEndOverlay
+@onready var node_button_continue = $LevelEndOverlay/Panel/ButtonContinue
 
 @export var camera: Camera3D
 
 var countdown: int
 var time_left: float
+var time_expired = false
 var countdown_timer: float
 var countdown_finished = false
 
@@ -28,8 +34,14 @@ var drop_cooldown_timer = 0.0
 
 var scene_score_popup = preload("res://scenes/ingame/ui/fragments/score-popup.tscn")
 
+signal time_out
+signal button_exit_pressed
+signal button_try_again_pressed
+signal button_continue_pressed
+
 func _ready():
 	node_cursor_attachments.visible = false
+	node_level_end_overlay.visible = false
 	node_points.text = "0"
 
 func _process(delta):
@@ -44,8 +56,14 @@ func _process(delta):
 
 		return
 	
-	time_left -= delta
-	node_time_left.text = format_time(ceil(time_left))
+	# TODO: this should really be handled in the level script
+	if time_left > 0:
+		time_left -= delta
+		node_time_left.text = format_time(ceil(time_left))
+	elif not time_expired:
+		time_expired = true
+		time_out.emit()
+		node_level_end_overlay.visible = true
 
 	if is_discarding:
 		discard_timer += delta
@@ -72,12 +90,15 @@ func format_time(time_in_seconds: int):
 
 	return "%02d:%02d" % [minutes, seconds]
 
-func init(countdown_: int, time_limit: int, crate_discard_delay: float, crate_drop_cooldown: float):
+func init(countdown_: int, time_limit: int, continue_enabled: bool, crate_discard_delay: float, crate_drop_cooldown: float):
 	countdown = countdown_
 	countdown_timer = float(countdown)
 	time_left = time_limit
 	discard_time = crate_discard_delay
 	drop_cooldown_time = crate_drop_cooldown
+
+	if not continue_enabled:
+		node_button_continue.visible = false
 
 	node_countdown_overlay.visible = true
 	update_countdown_timer()
@@ -120,9 +141,25 @@ func on_next_crate_colour_picked(colour: Globals.Colour):
 func on_total_score_updated(score: int):
 	node_points.text = str(score)
 
-func on_points_scored(points: int, world_position: Vector3):
+func on_points_scored(points: int, world_position: Vector3, combo: int):
 	var screen_position = camera.unproject_position(world_position)
 	var label = scene_score_popup.instantiate()
 	label.position = screen_position
 	label.set_value(points)
 	node_score_popups.add_child(label)
+
+	if combo == 1:
+		node_sound_score_1.play()
+	elif combo == 2:
+		node_sound_score_2.play()
+	elif combo >= 3:
+		node_sound_score_3.play()
+
+func on_button_exit_pressed():
+	button_exit_pressed.emit()
+
+func on_button_try_again_pressed():
+	button_try_again_pressed.emit()
+
+func on_button_continue_pressed():
+	button_continue_pressed.emit()

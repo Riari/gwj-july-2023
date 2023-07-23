@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cgee46s1d1s1o"]
+[gd_scene load_steps=20 format=3 uid="uid://cgee46s1d1s1o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_gqr5e"]
 [ext_resource type="PackedScene" uid="uid://cuo8hdm3d28q6" path="res://scenes/ingame/objects/track.tscn" id="2_wg2oe"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scenes/sound-effects-level.gd" id="12_j3fxb"]
 [ext_resource type="AudioStream" uid="uid://dm8rmgxxf753w" path="res://audio/effect_loop_train_motion.mp3" id="13_v3o4t"]
 [ext_resource type="AudioStream" uid="uid://6ppu47qt4nf" path="res://audio/music_ingame.mp3" id="14_tfrna"]
+[ext_resource type="AudioStream" uid="uid://c5rigyx1lr5q1" path="res://audio/music_ingame_level_end.mp3" id="15_vcm27"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a55yf"]
 size = Vector3(1, 0.01, 1)
@@ -118,14 +119,17 @@ script = ExtResource("12_j3fxb")
 
 [node name="Slot1" type="AudioStreamPlayer3D" parent="SoundEffects"]
 attenuation_model = 3
+volume_db = 2.0
 panning_strength = 3.0
 
 [node name="Slot2" type="AudioStreamPlayer3D" parent="SoundEffects"]
 attenuation_model = 3
+volume_db = 2.0
 panning_strength = 3.0
 
 [node name="Slot3" type="AudioStreamPlayer3D" parent="SoundEffects"]
 attenuation_model = 3
+volume_db = 2.0
 panning_strength = 3.0
 
 [node name="TrainMotion" type="AudioStreamPlayer3D" parent="."]
@@ -138,6 +142,13 @@ autoplay = true
 stream = ExtResource("14_tfrna")
 autoplay = true
 
+[node name="MusicLevelEnd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_vcm27")
+
+[connection signal="button_continue_pressed" from="HUD" to="." method="on_button_continue_pressed"]
+[connection signal="button_exit_pressed" from="HUD" to="." method="on_button_exit_pressed"]
+[connection signal="button_try_again_pressed" from="HUD" to="." method="on_button_try_again_pressed"]
+[connection signal="time_out" from="HUD" to="." method="on_time_out"]
 [connection signal="body_entered" from="Ground/Area3D" to="ScoreManager" method="on_ground_received_body"]
 [connection signal="train_received_crate" from="Tracks" to="ScoreManager" method="on_train_received_crate"]
 [connection signal="train_received_crate" from="Tracks" to="SoundEffects" method="on_train_received_crate"]
