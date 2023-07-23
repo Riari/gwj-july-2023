@@ -50,6 +50,11 @@ extends Node3D
 # For crates dropped onto the ground
 @export var points_miss: int = -5
 
+## Target scores
+@export var target_score_bronze: int = 150
+@export var target_score_silver: int = 250
+@export var target_score_gold: int = 500
+
 @onready var node_hud = $HUD
 @onready var node_tracks = $Tracks
 @onready var node_crates = $Crates
@@ -57,17 +62,29 @@ extends Node3D
 @onready var node_music = $Music
 @onready var node_music_level_end = $MusicLevelEnd
 
+var countdown_timer: float
+var has_countdown_ended = false
+
+var level_timer: float
+var has_level_timer_ended = false
+
 signal request_exit
 signal request_try_again
 signal request_continue
+signal countdown_updated(time_left)
+signal countdown_ended
+signal level_timer_updated(time_left)
+signal level_timer_ended
 
 func _ready():
 	node_hud.init(
-		countdown,
 		time_limit,
 		continue_enabled,
 		crate_discard_delay,
-		crate_drop_cooldown
+		crate_drop_cooldown,
+		target_score_bronze,
+		target_score_silver,
+		target_score_gold
 	)
 
 	node_tracks.init(
@@ -95,18 +112,48 @@ func _ready():
 		points_combo_three,
 		points_discard,
 		points_incorrect_drop,
-		points_miss
+		points_miss,
+		target_score_bronze,
+		target_score_silver,
+		target_score_gold
 	)
 
-func on_time_out():
-	node_music.stop()
-	node_music_level_end.play()
+	countdown_timer = countdown
+	level_timer = time_limit
+
+func _process(delta):
+	if get_tree().paused:
+		return
+
+	if not has_countdown_ended:
+		countdown_timer -= delta
+
+		if countdown_timer <= 0:
+			has_countdown_ended = true
+			countdown_ended.emit()
+
+		countdown_updated.emit(countdown_timer)
+		return
+
+	if not has_level_timer_ended:
+		level_timer -= delta
+
+		if level_timer <= 0:
+			has_level_timer_ended = true
+			level_timer_ended.emit()
+			node_music.stop()
+			node_music_level_end.play()
+
+		level_timer_updated.emit(level_timer)
 
 func on_button_exit_pressed():
+	get_tree().paused = false
 	request_exit.emit()
 
 func on_button_try_again_pressed():
+	get_tree().paused = false
 	request_try_again.emit()
 
 func on_button_continue_pressed():
+	get_tree().paused = false
 	request_continue.emit()

@@ -8,7 +8,6 @@ var speed = 5.0
 var disappear_timer = 2.0
 
 func set_value(value: int):
-	print(node_label)
 	node_label.text = str(value)
 	if value < 0:
 		node_label.add_theme_color_override("font_color", color_negative)

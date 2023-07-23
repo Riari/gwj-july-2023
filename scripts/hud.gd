@@ -15,14 +15,15 @@ extends Control
 @onready var node_sound_score_3 = $ScoreSounds/Score3
 @onready var node_level_end_overlay = $LevelEndOverlay
 @onready var node_button_continue = $LevelEndOverlay/Panel/ButtonContinue
+@onready var node_icon_bronze = $LevelEndOverlay/Panel/Scores/IconBronze
+@onready var node_label_bronze = $LevelEndOverlay/Panel/Scores/Bronze
+@onready var node_icon_silver = $LevelEndOverlay/Panel/Scores/IconSilver
+@onready var node_label_silver = $LevelEndOverlay/Panel/Scores/Silver
+@onready var node_icon_gold = $LevelEndOverlay/Panel/Scores/IconGold
+@onready var node_label_gold = $LevelEndOverlay/Panel/Scores/Gold
+@onready var node_your_score_value = $LevelEndOverlay/Panel/Scores/YourScoreValue
 
 @export var camera: Camera3D
-
-var countdown: int
-var time_left: float
-var time_expired = false
-var countdown_timer: float
-var countdown_finished = false
 
 var is_discarding = false
 var discard_time = 1.0
@@ -32,9 +33,10 @@ var is_drop_cooldown_active = false
 var drop_cooldown_time = 1.0
 var drop_cooldown_timer = 0.0
 
+var target_scores = {}
+
 var scene_score_popup = preload("res://scenes/ingame/ui/fragments/score-popup.tscn")
 
-signal time_out
 signal button_exit_pressed
 signal button_try_again_pressed
 signal button_continue_pressed
@@ -45,26 +47,6 @@ func _ready():
 	node_points.text = "0"
 
 func _process(delta):
-	if not countdown_finished:
-		countdown_timer -= delta
-
-		if countdown_timer <= 0.0:
-			countdown_finished = true
-			node_countdown_overlay.visible = false
-
-		update_countdown_timer()
-
-		return
-	
-	# TODO: this should really be handled in the level script
-	if time_left > 0:
-		time_left -= delta
-		node_time_left.text = format_time(ceil(time_left))
-	elif not time_expired:
-		time_expired = true
-		time_out.emit()
-		node_level_end_overlay.visible = true
-
 	if is_discarding:
 		discard_timer += delta
 		node_discard_progress.value = remap(discard_timer, 0, discard_time, 0, node_discard_progress.max_value)
@@ -90,23 +72,41 @@ func format_time(time_in_seconds: int):
 
 	return "%02d:%02d" % [minutes, seconds]
 
-func init(countdown_: int, time_limit: int, continue_enabled: bool, crate_discard_delay: float, crate_drop_cooldown: float):
-	countdown = countdown_
-	countdown_timer = float(countdown)
-	time_left = time_limit
+func init(time_limit: int, continue_enabled: bool, crate_discard_delay: float, crate_drop_cooldown: float, target_score_bronze: int, target_score_silver: int, target_score_gold: int):
 	discard_time = crate_discard_delay
 	drop_cooldown_time = crate_drop_cooldown
 
 	if not continue_enabled:
 		node_button_continue.visible = false
+	else:
+		node_button_continue.disabled = true
 
 	node_countdown_overlay.visible = true
-	update_countdown_timer()
 
+	node_time_left.text = format_time(ceil(time_limit))
+
+	target_scores["bronze"] = target_score_bronze
+	target_scores["silver"] = target_score_silver
+	target_scores["gold"] = target_score_gold
+
+	node_icon_bronze.modulate = Color(0, 0, 0, 1)
+	node_label_bronze.text = str(target_score_bronze)
+	node_icon_silver.modulate = Color(0, 0, 0, 1)
+	node_label_silver.text = str(target_score_silver)
+	node_icon_gold.modulate = Color(0, 0, 0, 1)
+	node_label_gold.text = str(target_score_gold)
+
+func on_countdown_timer_updated(time_left: float):
+	node_countdown_time.text = "[b]" + str(ceil(time_left)) + "...[/b]"
+
+func on_countdown_timer_ended():
+	node_countdown_overlay.visible = false
+
+func on_level_timer_updated(time_left: float):
 	node_time_left.text = format_time(ceil(time_left))
 
-func update_countdown_timer():
-	node_countdown_time.text = "[b]" + str(ceil(countdown_timer)) + "...[/b]"
+func on_level_timer_ended():
+	node_level_end_overlay.visible = true
 
 func on_crate_discard_started():
 	node_cursor_attachments.visible = true
@@ -140,6 +140,7 @@ func on_next_crate_colour_picked(colour: Globals.Colour):
 
 func on_total_score_updated(score: int):
 	node_points.text = str(score)
+	node_your_score_value.text = str(score)
 
 func on_points_scored(points: int, world_position: Vector3, combo: int):
 	var screen_position = camera.unproject_position(world_position)
@@ -163,3 +164,15 @@ func on_button_try_again_pressed():
 
 func on_button_continue_pressed():
 	button_continue_pressed.emit()
+
+func on_medal_won(medal: Globals.Medal):
+	node_button_continue.disabled = false
+
+	if medal == Globals.Medal.BRONZE:
+		node_icon_bronze.modulate = Color(1, 1, 1, 1)
+	
+	if medal == Globals.Medal.SILVER:
+		node_icon_silver.modulate = Color(1, 1, 1, 1)
+
+	if medal == Globals.Medal.GOLD:
+		node_icon_gold.modulate = Color(1, 1, 1, 1)

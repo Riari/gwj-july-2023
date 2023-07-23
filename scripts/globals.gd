@@ -3,6 +3,7 @@ class_name Globals
 const MaterialsBasePath = "res://materials/"
 enum Colour {BLACK, BLUE, BROWN, GREEN, ORANGE, RED, WHITE} # Train and crate colours
 enum TrainDirection {NORTH, SOUTH}
+enum Medal {NONE, BRONZE, SILVER, GOLD}
 
 const EnabledColours = [
 	Colour.BLUE,

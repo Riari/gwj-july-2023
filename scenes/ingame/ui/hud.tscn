@@ -1,11 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://dptt37oqe2nhi"]
+[gd_scene load_steps=22 format=3 uid="uid://dptt37oqe2nhi"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_ilyqu"]
 [ext_resource type="Theme" uid="uid://dqyfggoaaux27" path="res://default_theme.tres" id="1_vpm3y"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="2_4hiq7"]
 [ext_resource type="PackedScene" uid="uid://dmb4kv1gi4gh6" path="res://scenes/crate-preview.tscn" id="3_pkhyh"]
+[ext_resource type="Texture2D" uid="uid://bg2icjejk8fq0" path="res://textures/icon_medal_bronze.png" id="5_4x2ek"]
 [ext_resource type="AudioStream" uid="uid://bq6oeaxy8ng8y" path="res://audio/ui_score_1.wav" id="5_f80t4"]
 [ext_resource type="AudioStream" uid="uid://cxinxd75lourv" path="res://audio/ui_score_2.wav" id="6_45mft"]
+[ext_resource type="Texture2D" uid="uid://bpcnh36f7kxl4" path="res://textures/icon_medal_silver.png" id="6_a3jix"]
+[ext_resource type="Texture2D" uid="uid://c64rrh1t5jjxl" path="res://textures/icon_medal_gold.png" id="7_omekq"]
 [ext_resource type="AudioStream" uid="uid://3ky8y3tabjpc" path="res://audio/ui_score_3.wav" id="7_w6ss6"]
 
 [sub_resource type="Gradient" id="Gradient_hsmrh"]
@@ -50,7 +53,11 @@ gradient = SubResource("Gradient_vymny")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tu5a"]
 bg_color = Color(0, 0, 0, 0.329412)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0o35c"]
+bg_color = Color(0.117647, 0.121569, 0.141176, 0.733333)
+
 [node name="HUD" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,6 +90,7 @@ anchor_bottom = 1.0
 offset_top = -64.0
 offset_right = 274.0
 grow_vertical = 0
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_wkc6g")
 
 [node name="Label" type="RichTextLabel" parent="Score"]
@@ -202,6 +210,7 @@ offset_left = -274.0
 offset_top = -64.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_h8vtg")
 
 [node name="Label" type="RichTextLabel" parent="TimeLeft"]
@@ -255,6 +264,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="LevelEndOverlay" type="Panel" parent="."]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -276,6 +286,7 @@ offset_right = 258.0
 offset_bottom = 191.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0o35c")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="LevelEndOverlay/Panel"]
 layout_mode = 1
@@ -334,6 +345,89 @@ offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Continue"
+
+[node name="Scores" type="Control" parent="LevelEndOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 42.0
+offset_top = -122.0
+offset_right = 174.0
+offset_bottom = 122.0
+grow_vertical = 2
+
+[node name="IconGold" type="TextureRect" parent="LevelEndOverlay/Panel/Scores"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 143.0
+offset_right = 32.0
+offset_bottom = 175.0
+texture = ExtResource("7_omekq")
+expand_mode = 1
+
+[node name="IconSilver" type="TextureRect" parent="LevelEndOverlay/Panel/Scores"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 95.0
+offset_right = 32.0
+offset_bottom = 127.0
+texture = ExtResource("6_a3jix")
+expand_mode = 1
+
+[node name="IconBronze" type="TextureRect" parent="LevelEndOverlay/Panel/Scores"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 47.0
+offset_right = 32.0
+offset_bottom = 79.0
+texture = ExtResource("5_4x2ek")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="LevelEndOverlay/Panel/Scores"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 21.0
+text = "Target scores"
+
+[node name="Gold" type="Label" parent="LevelEndOverlay/Panel/Scores"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 150.0
+offset_right = 85.0
+offset_bottom = 174.0
+text = "0"
+
+[node name="Silver" type="Label" parent="LevelEndOverlay/Panel/Scores"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 103.0
+offset_right = 85.0
+offset_bottom = 127.0
+text = "0"
+
+[node name="Bronze" type="Label" parent="LevelEndOverlay/Panel/Scores"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 55.0
+offset_right = 85.0
+offset_bottom = 79.0
+text = "0"
+
+[node name="YourScore" type="Label" parent="LevelEndOverlay/Panel/Scores"]
+layout_mode = 0
+offset_top = 200.0
+offset_right = 93.0
+offset_bottom = 224.0
+text = "Your score: "
+
+[node name="YourScoreValue" type="Label" parent="LevelEndOverlay/Panel/Scores"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 200.0
+offset_right = 189.0
+offset_bottom = 224.0
+text = "0"
 
 [node name="ScorePopups" type="Control" parent="."]
 anchors_preset = 0

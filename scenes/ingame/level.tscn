@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cgee46s1d1s1o"]
+[gd_scene load_steps=21 format=3 uid="uid://cgee46s1d1s1o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_gqr5e"]
 [ext_resource type="PackedScene" uid="uid://cuo8hdm3d28q6" path="res://scenes/ingame/objects/track.tscn" id="2_wg2oe"]
 [ext_resource type="PackedScene" uid="uid://dptt37oqe2nhi" path="res://scenes/ingame/ui/hud.tscn" id="3_3ppr2"]
+[ext_resource type="PackedScene" uid="uid://bgnuqq06g1x0o" path="res://scenes/ingame/pause-menu.tscn" id="4_74dd1"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="4_gk64m"]
 [ext_resource type="ArrayMesh" uid="uid://dlfd88cdy6mbg" path="res://models/ground_grass.tres" id="5_n7k6p"]
 [ext_resource type="ArrayMesh" uid="uid://75x650enbkes" path="res://models/grass.res" id="6_aeb7i"]
@@ -34,7 +35,7 @@ buffer = PackedFloat32Array(-0.27826, 0, -0.747185, -37.2434, 0, 0.797317, 0, 0,
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdjxx"]
 
 [node name="Level" type="Node3D"]
-process_mode = 1
+process_mode = 3
 script = ExtResource("1_gqr5e")
 track_count = 3
 track_spacing = 12
@@ -46,7 +47,11 @@ train_speed = 8.0
 crate_drop_cooldown = 0.65
 
 [node name="HUD" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_3ppr2")]
+process_mode = 1
 camera = NodePath("../Camera3D")
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_74dd1")]
+visible = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, -0.97437, 0.224951, 0, 0.224951, 0.97437, -1, 4.25911e-08, -9.83292e-09, 23, 82, 0)
@@ -84,9 +89,11 @@ cast_shadow = 0
 multimesh = SubResource("MultiMesh_d3aya")
 
 [node name="Tracks" type="Node3D" parent="."]
+process_mode = 1
 script = ExtResource("8_65wc1")
 
 [node name="Crates" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+process_mode = 1
 script = ExtResource("9_jng1j")
 crate_scene = ExtResource("10_qsqxg")
 camera = NodePath("../Camera3D")
@@ -133,22 +140,30 @@ volume_db = 2.0
 panning_strength = 3.0
 
 [node name="TrainMotion" type="AudioStreamPlayer3D" parent="."]
+process_mode = 1
 stream = ExtResource("13_v3o4t")
 attenuation_model = 3
 volume_db = -10.0
 autoplay = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("14_tfrna")
 autoplay = true
 
 [node name="MusicLevelEnd" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("15_vcm27")
 
+[connection signal="countdown_ended" from="." to="HUD" method="on_countdown_timer_ended"]
+[connection signal="countdown_updated" from="." to="HUD" method="on_countdown_timer_updated"]
+[connection signal="level_timer_ended" from="." to="HUD" method="on_level_timer_ended"]
+[connection signal="level_timer_updated" from="." to="HUD" method="on_level_timer_updated"]
 [connection signal="button_continue_pressed" from="HUD" to="." method="on_button_continue_pressed"]
 [connection signal="button_exit_pressed" from="HUD" to="." method="on_button_exit_pressed"]
 [connection signal="button_try_again_pressed" from="HUD" to="." method="on_button_try_again_pressed"]
-[connection signal="time_out" from="HUD" to="." method="on_time_out"]
+[connection signal="button_exit_pressed" from="PauseMenu" to="." method="on_button_exit_pressed"]
+[connection signal="button_try_again_pressed" from="PauseMenu" to="." method="on_button_try_again_pressed"]
 [connection signal="body_entered" from="Ground/Area3D" to="ScoreManager" method="on_ground_received_body"]
 [connection signal="train_received_crate" from="Tracks" to="ScoreManager" method="on_train_received_crate"]
 [connection signal="train_received_crate" from="Tracks" to="SoundEffects" method="on_train_received_crate"]
@@ -158,5 +173,6 @@ stream = ExtResource("15_vcm27")
 [connection signal="discard_started" from="Crates" to="HUD" method="on_crate_discard_started"]
 [connection signal="drop_cooldown_started" from="Crates" to="HUD" method="on_crate_drop_cooldown_started"]
 [connection signal="next_colour_picked" from="Crates" to="HUD" method="on_next_crate_colour_picked"]
+[connection signal="medal_won" from="ScoreManager" to="HUD" method="on_medal_won"]
 [connection signal="points_scored" from="ScoreManager" to="HUD" method="on_points_scored"]
 [connection signal="total_score_updated" from="ScoreManager" to="HUD" method="on_total_score_updated"]
