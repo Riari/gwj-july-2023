@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dptt37oqe2nhi"]
+[gd_scene load_steps=23 format=3 uid="uid://dptt37oqe2nhi"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_ilyqu"]
 [ext_resource type="Theme" uid="uid://dqyfggoaaux27" path="res://default_theme.tres" id="1_vpm3y"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bpcnh36f7kxl4" path="res://textures/icon_medal_silver.png" id="6_a3jix"]
 [ext_resource type="Texture2D" uid="uid://c64rrh1t5jjxl" path="res://textures/icon_medal_gold.png" id="7_omekq"]
 [ext_resource type="AudioStream" uid="uid://3ky8y3tabjpc" path="res://audio/ui_score_3.wav" id="7_w6ss6"]
+[ext_resource type="AudioStream" uid="uid://ckwu0s3gp0gi0" path="res://audio/ui_time_low.mp3" id="11_si0eb"]
 
 [sub_resource type="Gradient" id="Gradient_hsmrh"]
 offsets = PackedFloat32Array(0.440104, 0.463542, 0.638021, 0.666667)
@@ -477,6 +478,9 @@ stream = ExtResource("6_45mft")
 
 [node name="Score3" type="AudioStreamPlayer" parent="ScoreSounds"]
 stream = ExtResource("7_w6ss6")
+
+[node name="TimeLowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_si0eb")
 
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonExit" to="." method="on_button_exit_pressed"]
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonTryAgain" to="." method="on_button_try_again_pressed"]

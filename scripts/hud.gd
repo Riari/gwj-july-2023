@@ -23,6 +23,7 @@ extends Control
 @onready var node_label_gold = $LevelEndOverlay/Panel/Scores/Gold
 @onready var node_your_score_value = $LevelEndOverlay/Panel/Scores/YourScoreValue
 @onready var node_stats = $LevelEndOverlay/Panel/Stats/Label
+@onready var node_time_low_sound = $TimeLowSound
 
 @export var camera: Camera3D
 
@@ -35,6 +36,10 @@ var drop_cooldown_time = 1.0
 var drop_cooldown_timer = 0.0
 
 var target_scores = {}
+
+var low_time_flash_duration = 0.5
+var low_time_flash_timer = 0.0
+var play_time_low_sound = false
 
 var scene_score_popup = preload("res://scenes/ingame/ui/fragments/score-popup.tscn")
 
@@ -61,6 +66,16 @@ func _process(delta):
 
 		if drop_cooldown_timer >= drop_cooldown_time:
 			stop_cooldown()
+
+	if play_time_low_sound:
+		low_time_flash_timer -= delta
+
+		if low_time_flash_timer <= 0:
+			node_time_left.visible = !node_time_left.visible
+			low_time_flash_timer = low_time_flash_duration
+
+		if not node_time_low_sound.playing:
+			node_time_low_sound.play()
 
 	if not node_cursor_attachments.visible:
 		return
@@ -104,10 +119,16 @@ func on_countdown_timer_ended():
 	node_countdown_overlay.visible = false
 
 func on_level_timer_updated(time_left: float):
-	node_time_left.text = format_time(ceil(time_left))
+	if time_left > 0 and time_left < 10:
+		play_time_low_sound = true
+
+	node_time_left.text = format_time(int(ceil(time_left)))
 
 func on_level_timer_ended():
 	node_level_end_overlay.visible = true
+	play_time_low_sound = false
+	node_time_left.visible = true
+	node_time_low_sound.stop()
 
 func on_crate_discard_started():
 	node_cursor_attachments.visible = true
