@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6sc7kit83d0"]
+
+[ext_resource type="Script" path="res://scripts/level-container.gd" id="1_1ftsm"]
+[ext_resource type="PackedScene" uid="uid://cgee46s1d1s1o" path="res://scenes/ingame/level.tscn" id="2_ax2eb"]
+
+[node name="3" type="Node3D"]
+script = ExtResource("1_1ftsm")
+
+[node name="Level" parent="." instance=ExtResource("2_ax2eb")]
+continue_enabled = false
+train_spawn_interval_min = 10
+train_spawn_interval_max = 15
+train_speed = 12.0
+
+[connection signal="request_exit" from="Level" to="." method="on_request_exit"]
+[connection signal="request_try_again" from="Level" to="." method="on_request_try_again"]

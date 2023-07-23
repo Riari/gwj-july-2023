@@ -36,12 +36,12 @@ func award(points_to_award: int, position: Vector3, combo: int):
 	points_scored.emit(points_to_award, position, combo)
 	total_score_updated.emit(total_score)
 
-	if total_score >= medals["bronze"]:
-		medal_won.emit(Globals.Medal.BRONZE)
+	if total_score >= medals["gold"]:
+		medal_won.emit(Globals.Medal.GOLD)
 	elif total_score >= medals["silver"]:
 		medal_won.emit(Globals.Medal.SILVER)
-	elif total_score >= medals["gold"]:
-		medal_won.emit(Globals.Medal.GOLD)
+	elif total_score >= medals["bronze"]:
+		medal_won.emit(Globals.Medal.BRONZE)
 
 func increment_stat(stat: String):
 	stats[stat] += 1

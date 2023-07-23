@@ -4,6 +4,7 @@ extends Node3D
 @export var train_scene: PackedScene = preload("res://scenes/ingame/objects/train.tscn")
 
 var has_spawned = false
+var is_delay_after_initial_spawn_active = false
 var spawn_mode: int
 var spawn_colour: Globals.Colour
 var spawn_initial_interval_min: int
@@ -42,6 +43,16 @@ func restart_spawn_timer():
 	spawn_timer.paused = false
 	var interval_min = spawn_interval_min if has_spawned else spawn_initial_interval_min
 	var interval_max = spawn_interval_max if has_spawned else spawn_initial_interval_max
+
+	if not has_spawned:
+		is_delay_after_initial_spawn_active = true
+
+	# Workaround to prevent overlapping trains after the shorter initial wait
+	if is_delay_after_initial_spawn_active:
+		interval_min += 3
+		interval_max += 3
+		is_delay_after_initial_spawn_active = false
+
 	spawn_timer.wait_time = float(rng.randf_range(interval_min, interval_max))
 	spawn_timer.start()
 
