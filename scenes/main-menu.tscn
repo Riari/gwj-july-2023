@@ -321,6 +321,7 @@ grow_vertical = 0
 text = "Back to menu"
 
 [node name="PanelPlay" type="Panel" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -416,6 +417,7 @@ texture = ExtResource("13_7d5b7")
 expand_mode = 1
 
 [node name="ScreenshotTimeLeft" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
 offset_left = 753.0
 offset_top = 350.0
 offset_right = 928.0
@@ -424,6 +426,7 @@ texture = ExtResource("14_ml40g")
 expand_mode = 1
 
 [node name="ScreenshotDrop" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
 offset_left = 38.0
 offset_top = 138.0
 offset_right = 121.0
@@ -432,6 +435,7 @@ texture = ExtResource("15_uulib")
 expand_mode = 1
 
 [node name="ScreenshotDropCombo" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
 offset_left = 38.0
 offset_top = 314.0
 offset_right = 121.0
@@ -440,6 +444,7 @@ texture = ExtResource("16_paqwa")
 expand_mode = 1
 
 [node name="ScreenshotGroundDrop" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
 offset_left = 38.0
 offset_top = 237.0
 offset_right = 121.0
@@ -448,6 +453,7 @@ texture = ExtResource("17_ngy0r")
 expand_mode = 1
 
 [node name="ScreenshotTotalScore" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
 offset_left = 799.0
 offset_top = 293.0
 offset_right = 927.0
@@ -456,6 +462,7 @@ texture = ExtResource("18_rw1y0")
 expand_mode = 1
 
 [node name="ScreenshotNextCrate" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
 offset_left = 847.0
 offset_top = 193.0
 offset_right = 926.0
