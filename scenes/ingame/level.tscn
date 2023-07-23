@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_gqr5e"]
 [ext_resource type="PackedScene" uid="uid://cuo8hdm3d28q6" path="res://scenes/ingame/objects/track.tscn" id="2_wg2oe"]
-[ext_resource type="PackedScene" uid="uid://dptt37oqe2nhi" path="res://scenes/hud.tscn" id="3_3ppr2"]
+[ext_resource type="PackedScene" uid="uid://dptt37oqe2nhi" path="res://scenes/ingame/ui/hud.tscn" id="3_3ppr2"]
 [ext_resource type="Environment" uid="uid://biktyphh4dxgd" path="res://default_environment.tres" id="4_gk64m"]
 [ext_resource type="ArrayMesh" uid="uid://dlfd88cdy6mbg" path="res://models/ground_grass.tres" id="5_n7k6p"]
 [ext_resource type="ArrayMesh" uid="uid://75x650enbkes" path="res://models/grass.res" id="6_aeb7i"]

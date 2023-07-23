@@ -247,3 +247,8 @@ bbcode_enabled = true
 text = "[b]3...[/b]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="ScorePopups" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

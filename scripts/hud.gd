@@ -9,6 +9,7 @@ extends Control
 @onready var node_time_left = $TimeLeft/Time
 @onready var node_countdown_overlay = $CountdownOverlay
 @onready var node_countdown_time = $CountdownOverlay/RichTextLabel
+@onready var node_score_popups = $ScorePopups
 
 @export var camera: Camera3D
 
@@ -24,6 +25,8 @@ var discard_timer = 0.0
 var is_drop_cooldown_active = false
 var drop_cooldown_time = 1.0
 var drop_cooldown_timer = 0.0
+
+var scene_score_popup = preload("res://scenes/ingame/ui/fragments/score-popup.tscn")
 
 func _ready():
 	node_cursor_attachments.visible = false
@@ -61,7 +64,7 @@ func _process(delta):
 	if not node_cursor_attachments.visible:
 		return
 
-		node_cursor_attachments.position = get_global_mouse_position()
+	node_cursor_attachments.position = get_global_mouse_position()
 
 func format_time(time_in_seconds: int):
 	var seconds = time_in_seconds % 60
@@ -117,5 +120,9 @@ func on_next_crate_colour_picked(colour: Globals.Colour):
 func on_total_score_updated(score: int):
 	node_points.text = str(score)
 
-func on_points_scored(points, world_position):
-	pass # Replace with function body.
+func on_points_scored(points: int, world_position: Vector3):
+	var screen_position = camera.unproject_position(world_position)
+	var label = scene_score_popup.instantiate()
+	label.position = screen_position
+	label.set_value(points)
+	node_score_popups.add_child(label)
