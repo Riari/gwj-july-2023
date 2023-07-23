@@ -9,7 +9,11 @@ script = ExtResource("1_lt73s")
 scene_next_level = ExtResource("2_77jc2")
 
 [node name="Level" parent="." instance=ExtResource("1_74mfn")]
+time_limit = 60
 track_count = 5
+track_spacing = 8
+target_score_gold = 400
 
+[connection signal="request_continue" from="Level" to="." method="on_request_continue"]
 [connection signal="request_exit" from="Level" to="." method="on_request_exit"]
 [connection signal="request_try_again" from="Level" to="." method="on_request_try_again"]

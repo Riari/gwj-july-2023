@@ -171,6 +171,9 @@ func on_points_scored(points: int, world_position: Vector3, combo: int):
 	label.set_value(points)
 	node_score_popups.add_child(label)
 
+	if points <= 0:
+		return
+
 	if combo == 1:
 		node_sound_score_1.play()
 	elif combo == 2:
