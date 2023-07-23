@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c856gqeb4knq1"]
+
+[ext_resource type="Script" path="res://scripts/button-sounds.gd" id="1_drp36"]
+[ext_resource type="AudioStream" uid="uid://opidhet7we5y" path="res://audio/ui_button_press.wav" id="1_keujb"]
+
+[node name="ButtonSounds" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_drp36")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_keujb")

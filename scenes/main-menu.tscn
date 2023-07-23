@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dicfr27lgsrks"]
+[gd_scene load_steps=27 format=3 uid="uid://dicfr27lgsrks"]
 
 [ext_resource type="ArrayMesh" uid="uid://dlfd88cdy6mbg" path="res://models/ground_grass.tres" id="1_gn6mt"]
 [ext_resource type="Script" path="res://scripts/main-menu.gd" id="1_mv60o"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://c1ucu4ex1jrak" path="res://textures/how_to_play/Godot_v4.1-stable_win64_DJIP5RYhtV.png" id="17_ngy0r"]
 [ext_resource type="Texture2D" uid="uid://dub2np6vjwn2o" path="res://textures/how_to_play/Godot_v4.1-stable_win64_fE0e54kTdw.png" id="18_rw1y0"]
 [ext_resource type="Texture2D" uid="uid://dcamhbpm7jrrg" path="res://textures/how_to_play/Godot_v4.1-stable_win64_sApEfnVhM6.png" id="19_simrx"]
+[ext_resource type="PackedScene" uid="uid://c856gqeb4knq1" path="res://scenes/ingame/ui/button-sounds.tscn" id="21_falut"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_43bn4"]
 transform_format = 1
@@ -101,6 +102,8 @@ transform = Transform3D(0.743145, -0.393305, 0.541338, 0, 0.809017, 0.587785, -0
 projection = 1
 size = 23.0
 
+[node name="ButtonSounds" parent="." instance=ExtResource("21_falut")]
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -136,7 +139,7 @@ offset_top = 88.0
 offset_right = 64.0
 offset_bottom = 128.0
 
-[node name="Play" type="Button" parent="UI/Menu/Buttons"]
+[node name="Play" type="Button" parent="UI/Menu/Buttons" groups=["button"]]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
@@ -144,7 +147,7 @@ offset_right = 215.0
 offset_bottom = 39.0
 text = "Play"
 
-[node name="Credits" type="Button" parent="UI/Menu/Buttons"]
+[node name="Credits" type="Button" parent="UI/Menu/Buttons" groups=["button"]]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 58.0
@@ -152,7 +155,7 @@ offset_right = 215.0
 offset_bottom = 95.0
 text = "Credits"
 
-[node name="Exit" type="Button" parent="UI/Menu/Buttons"]
+[node name="Exit" type="Button" parent="UI/Menu/Buttons" groups=["button"]]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 114.0
@@ -305,7 +308,7 @@ Combo sounds
 [color=#8f979c]Me![/color]
 [/center]"
 
-[node name="ButtonBack" type="Button" parent="UI/PanelCredits"]
+[node name="ButtonBack" type="Button" parent="UI/PanelCredits" groups=["button"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -380,7 +383,7 @@ If a crate falls onto the [color=#ffcb73]ground[/color] or into the [color=#ffcb
 
 Try to drop multiple matching crates into the [color=#ffcb73]same train[/color] to score [color=#ffcb73]combos[/color]."
 
-[node name="ButtonBack" type="Button" parent="UI/PanelPlay"]
+[node name="ButtonBack" type="Button" parent="UI/PanelPlay" groups=["button"]]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -392,7 +395,7 @@ offset_bottom = -32.0
 grow_vertical = 0
 text = "Back to menu"
 
-[node name="ButtonPlay" type="Button" parent="UI/PanelPlay"]
+[node name="ButtonPlay" type="Button" parent="UI/PanelPlay" groups=["button"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

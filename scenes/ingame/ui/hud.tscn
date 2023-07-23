@@ -309,7 +309,7 @@ text = "[b]Time's up![/b]"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ButtonExit" type="Button" parent="LevelEndOverlay/Panel"]
+[node name="ButtonExit" type="Button" parent="LevelEndOverlay/Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -321,7 +321,7 @@ offset_bottom = -16.0
 grow_vertical = 0
 text = "Exit to menu"
 
-[node name="ButtonTryAgain" type="Button" parent="LevelEndOverlay/Panel"]
+[node name="ButtonTryAgain" type="Button" parent="LevelEndOverlay/Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -336,7 +336,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Try again"
 
-[node name="ButtonContinue" type="Button" parent="LevelEndOverlay/Panel"]
+[node name="ButtonContinue" type="Button" parent="LevelEndOverlay/Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

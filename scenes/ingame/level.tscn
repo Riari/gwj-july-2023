@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cgee46s1d1s1o"]
+[gd_scene load_steps=22 format=3 uid="uid://cgee46s1d1s1o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_gqr5e"]
 [ext_resource type="PackedScene" uid="uid://cuo8hdm3d28q6" path="res://scenes/ingame/objects/track.tscn" id="2_wg2oe"]
@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://dm8rmgxxf753w" path="res://audio/effect_loop_train_motion.mp3" id="13_v3o4t"]
 [ext_resource type="AudioStream" uid="uid://6ppu47qt4nf" path="res://audio/music_ingame.mp3" id="14_tfrna"]
 [ext_resource type="AudioStream" uid="uid://c5rigyx1lr5q1" path="res://audio/music_ingame_level_end.mp3" id="15_vcm27"]
+[ext_resource type="PackedScene" uid="uid://c856gqeb4knq1" path="res://scenes/ingame/ui/button-sounds.tscn" id="17_ykpgn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a55yf"]
 size = Vector3(1, 0.01, 1)
@@ -154,6 +155,8 @@ autoplay = true
 [node name="MusicLevelEnd" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("15_vcm27")
+
+[node name="ButtonSounds" parent="." instance=ExtResource("17_ykpgn")]
 
 [connection signal="countdown_ended" from="." to="HUD" method="on_countdown_timer_ended"]
 [connection signal="countdown_updated" from="." to="HUD" method="on_countdown_timer_updated"]

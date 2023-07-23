@@ -48,7 +48,7 @@ text = "Game paused"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ButtonExit" type="Button" parent="Panel"]
+[node name="ButtonExit" type="Button" parent="Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -60,7 +60,7 @@ offset_bottom = 247.0
 grow_horizontal = 2
 text = "Exit to menu"
 
-[node name="ButtonTryAgain" type="Button" parent="Panel"]
+[node name="ButtonTryAgain" type="Button" parent="Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -72,7 +72,7 @@ offset_bottom = 191.0
 grow_horizontal = 2
 text = "Try again"
 
-[node name="ButtonContinue" type="Button" parent="Panel"]
+[node name="ButtonContinue" type="Button" parent="Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
