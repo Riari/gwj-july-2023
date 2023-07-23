@@ -1,5 +1,11 @@
 extends Node3D
 
+## General settings
+# Countdown before the game starts
+@export var countdown: int = 3
+# Time limit (in seconds) before the level ends (trains stop spawning and crates can't be dropped)
+@export var time_limit: int = 45
+
 ## Track settings
 # How many tracks to spawn. Note: when using the "Fixed" spawn mode below, this MUST match the number of colours enabled in globals.gd!
 @export var track_count: int = 5
@@ -47,6 +53,8 @@ extends Node3D
 
 func _ready():
 	hud.init(
+		countdown,
+		time_limit,
 		crate_discard_delay,
 		crate_drop_cooldown
 	)

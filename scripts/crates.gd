@@ -31,7 +31,7 @@ signal crate_collided_with(crate, body, collision_count)
 
 const RAY_LENGTH = 1000.0
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			drop_crate()
