@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dicfr27lgsrks"]
+[gd_scene load_steps=26 format=3 uid="uid://dicfr27lgsrks"]
 
 [ext_resource type="ArrayMesh" uid="uid://dlfd88cdy6mbg" path="res://models/ground_grass.tres" id="1_gn6mt"]
 [ext_resource type="Script" path="res://scripts/main-menu.gd" id="1_mv60o"]
@@ -12,7 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://c4jxyvp4qsdyc" path="res://textures/gwj/theme.png" id="8_qkubu"]
 [ext_resource type="PackedScene" uid="uid://caokkwd7wk7ud" path="res://scenes/ingame/objects/crate-white.tscn" id="9_2kvsa"]
 [ext_resource type="Script" path="res://scripts/main-menu-ui.gd" id="11_ywxp1"]
+[ext_resource type="Texture2D" uid="uid://bgahihgffybog" path="res://textures/how_to_play/Godot_v4.1-stable_win64_0QA1b8NmkV.png" id="13_7d5b7"]
 [ext_resource type="AudioStream" uid="uid://geh8nc3rbswj" path="res://audio/music_main_menu.mp3" id="13_ncfjv"]
+[ext_resource type="Texture2D" uid="uid://b0f6pi8aolt5v" path="res://textures/how_to_play/Godot_v4.1-stable_win64_93XDqrcuOe.png" id="14_ml40g"]
+[ext_resource type="Texture2D" uid="uid://c6t4866acqmhn" path="res://textures/how_to_play/Godot_v4.1-stable_win64_dBHfeC4ESr.png" id="15_uulib"]
+[ext_resource type="Texture2D" uid="uid://rkcn28667s37" path="res://textures/how_to_play/Godot_v4.1-stable_win64_ICD6mwB2ou.png" id="16_paqwa"]
+[ext_resource type="Texture2D" uid="uid://c1ucu4ex1jrak" path="res://textures/how_to_play/Godot_v4.1-stable_win64_DJIP5RYhtV.png" id="17_ngy0r"]
+[ext_resource type="Texture2D" uid="uid://dub2np6vjwn2o" path="res://textures/how_to_play/Godot_v4.1-stable_win64_fE0e54kTdw.png" id="18_rw1y0"]
+[ext_resource type="Texture2D" uid="uid://dcamhbpm7jrrg" path="res://textures/how_to_play/Godot_v4.1-stable_win64_sApEfnVhM6.png" id="19_simrx"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_43bn4"]
 transform_format = 1
@@ -293,6 +300,9 @@ Train motion loop
 
 The 16-bit Jukebox
 [color=#8f979c]cyberleaf.itch.io[/color]
+
+Combo sounds
+[color=#8f979c]Me![/color]
 [/center]"
 
 [node name="ButtonBack" type="Button" parent="UI/PanelCredits"]
@@ -311,7 +321,6 @@ grow_vertical = 0
 text = "Back to menu"
 
 [node name="PanelPlay" type="Panel" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -336,80 +345,39 @@ text = "How to play"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ColumnLeft" type="RichTextLabel" parent="UI/PanelPlay"]
+[node name="Text" type="RichTextLabel" parent="UI/PanelPlay"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -445.0
 offset_top = 93.0
-offset_right = -113.0
+offset_right = 2.0
 offset_bottom = 482.0
 grow_horizontal = 2
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
-text = "[center][color=#a6cc8a]Visuals[/color]
+text = "Your job is to [color=#ffcb73]load crates into trains[/color]."
 
-Low Poly Railway Pack
-[color=#8f979c]siris-pendrake.itch.io[/color]
-
-Stylized Grass Mesh / Shader
-[color=#8f979c]stayathomedev.com[/color]
-
-Handpainted Grass & Ground Textures
-[color=#8f979c]atapataco.itch.io[/color]
-
-Stylized Crate Model
-[color=#8f979c]sketchfab.com/Discovered[/color]
-
-Karma Suture/Future Font
-[color=#8f979c]1001fonts.com[/color]
-[/center]"
-
-[node name="ColumnRight" type="RichTextLabel" parent="UI/PanelPlay"]
+[node name="Text2" type="RichTextLabel" parent="UI/PanelPlay"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 115.0
-offset_top = 93.0
-offset_right = 447.0
+offset_left = -340.0
+offset_top = 138.0
+offset_right = -45.0
 offset_bottom = 482.0
 grow_horizontal = 2
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
-text = "[center][color=#ff8e00]Code[/color]
+text = "Left-click to [color=#ffcb73]drop a crate[/color] into a train matching the crate's colour.
 
-Scripting
-[color=#8f979c]Me![/color]
-[/center]"
+If a crate falls onto the [color=#ffcb73]ground[/color] or into the [color=#ffcb73]wrong train[/color], you [color=#ffcb73]lose points[/color]!
 
-[node name="ColumnCenter" type="RichTextLabel" parent="UI/PanelPlay"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -165.0
-offset_top = 93.0
-offset_right = 167.0
-offset_bottom = 482.0
-grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 18
-theme_override_font_sizes/bold_font_size = 32
-bbcode_enabled = true
-text = "[center][color=#12a2cc]Audio[/color]
-
-Crate impact sound effects
-[color=#8f979c]zapsplat.com[/color]
-
-Train motion loop
-[color=#8f979c]orangefreesounds.com[/color]
-
-Music
-[color=#8f979c]?[/color]
-[/center]"
+Try to drop multiple matching crates into the [color=#ffcb73]same train[/color] to score [color=#ffcb73]combos[/color]."
 
 [node name="ButtonBack" type="Button" parent="UI/PanelPlay"]
 layout_mode = 1
@@ -437,6 +405,85 @@ offset_bottom = -32.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Play"
+
+[node name="ScreenshotDiscard" type="TextureRect" parent="UI/PanelPlay"]
+layout_mode = 0
+offset_left = 845.0
+offset_top = 98.0
+offset_right = 927.0
+offset_bottom = 184.0
+texture = ExtResource("13_7d5b7")
+expand_mode = 1
+
+[node name="ScreenshotTimeLeft" type="TextureRect" parent="UI/PanelPlay"]
+offset_left = 753.0
+offset_top = 350.0
+offset_right = 928.0
+offset_bottom = 397.0
+texture = ExtResource("14_ml40g")
+expand_mode = 1
+
+[node name="ScreenshotDrop" type="TextureRect" parent="UI/PanelPlay"]
+offset_left = 38.0
+offset_top = 138.0
+offset_right = 121.0
+offset_bottom = 228.0
+texture = ExtResource("15_uulib")
+expand_mode = 1
+
+[node name="ScreenshotDropCombo" type="TextureRect" parent="UI/PanelPlay"]
+offset_left = 38.0
+offset_top = 314.0
+offset_right = 121.0
+offset_bottom = 451.0
+texture = ExtResource("16_paqwa")
+expand_mode = 1
+
+[node name="ScreenshotGroundDrop" type="TextureRect" parent="UI/PanelPlay"]
+offset_left = 38.0
+offset_top = 237.0
+offset_right = 121.0
+offset_bottom = 306.0
+texture = ExtResource("17_ngy0r")
+expand_mode = 1
+
+[node name="ScreenshotTotalScore" type="TextureRect" parent="UI/PanelPlay"]
+offset_left = 799.0
+offset_top = 293.0
+offset_right = 927.0
+offset_bottom = 341.0
+texture = ExtResource("18_rw1y0")
+expand_mode = 1
+
+[node name="ScreenshotNextCrate" type="TextureRect" parent="UI/PanelPlay"]
+offset_left = 847.0
+offset_top = 193.0
+offset_right = 926.0
+offset_bottom = 283.0
+texture = ExtResource("19_simrx")
+expand_mode = 1
+
+[node name="Text3" type="RichTextLabel" parent="UI/PanelPlay"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 9.0
+offset_top = 98.0
+offset_right = 351.0
+offset_bottom = 469.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "Hold right-click to [color=#ffcb73]discard[/color] a crate. There's no score penalty for this, but it takes a short time.
+
+Keep an eye on your next crate in the top right, as well as your total score and time remaining in the lower corners of the HUD.
+
+Try to beat the [color=#f58833]bronze[/color], [color=#a5d4ce]silver[/color], and [color=#f1d220]gold[/color] scores at the end of the
+level.
+
+Good luck!"
 
 [node name="Music" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("13_ncfjv")
