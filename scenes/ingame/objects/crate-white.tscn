@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://caokkwd7wk7ud"]
+
+[ext_resource type="Script" path="res://scripts/crate.gd" id="1_wyt6a"]
+[ext_resource type="ArrayMesh" uid="uid://cpr071wr5hdei" path="res://models/crate.tres" id="2_t4v4j"]
+[ext_resource type="Material" uid="uid://d0u63hggyh2ue" path="res://materials/crate-white.tres" id="3_wi10y"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_o5jk4"]
+points = PackedVector3Array(-1, -1, -1, 0.999982, 1, 1, 0.999982, 1, -1, -1.01587, 1.01587, -1.01587, -1, 1, 1, 0.999982, -1, 1, 0.999982, -1, -1, -1, -1, 1)
+
+[node name="Crate" type="RigidBody3D" groups=["crate"]]
+mass = 10.0
+gravity_scale = 2.0
+max_contacts_reported = 1
+contact_monitor = true
+freeze = true
+script = ExtResource("1_wyt6a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_o5jk4")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_t4v4j")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_wi10y")
+
+[connection signal="body_entered" from="." to="." method="on_body_entered"]

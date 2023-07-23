@@ -1,4 +1,44 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dqyfggoaaux27"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dqyfggoaaux27"]
+
+[ext_resource type="FontFile" uid="uid://bf25xb3w6l2k8" path="res://fonts/Karma Suture.otf" id="1_r5m6w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqnqa"]
+bg_color = Color(0.180392, 0.403922, 0.576471, 1)
+draw_center = false
+skew = Vector2(0.12, 0)
+border_color = Color(0.760784, 0.607843, 0.345098, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4ty7"]
+bg_color = Color(0.25098, 0.278431, 0.321569, 1)
+skew = Vector2(0.12, 0)
+border_width_left = 5
+border_color = Color(0.760784, 0.607843, 0.345098, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+shadow_color = Color(0, 0, 0, 0.172549)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3aoax"]
+bg_color = Color(0.152941, 0.172549, 0.2, 1)
+skew = Vector2(0.12, 0)
+border_width_left = 5
+border_color = Color(0.760784, 0.607843, 0.345098, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+shadow_color = Color(0, 0, 0, 0.172549)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12fc3"]
+bg_color = Color(0.121569, 0.137255, 0.160784, 1)
+skew = Vector2(0.12, 0)
+border_width_left = 5
+border_color = Color(0.760784, 0.607843, 0.345098, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+shadow_color = Color(0, 0, 0, 0.172549)
+shadow_size = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcus7"]
 bg_color = Color(0.109804, 0.109804, 0.109804, 1)
@@ -7,6 +47,13 @@ bg_color = Color(0.109804, 0.109804, 0.109804, 1)
 bg_color = Color(1, 1, 1, 1)
 
 [resource]
+default_font = ExtResource("1_r5m6w")
+Button/font_sizes/font_size = 20
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_hqnqa")
+Button/styles/hover = SubResource("StyleBoxFlat_c4ty7")
+Button/styles/normal = SubResource("StyleBoxFlat_3aoax")
+Button/styles/pressed = SubResource("StyleBoxFlat_12fc3")
 ProgressBar/colors/font_color = Color(0.294118, 0.294118, 0.294118, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_tcus7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_y5k68")

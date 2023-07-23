@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1oo0nd14qaln"]
+
+[ext_resource type="PackedScene" uid="uid://cgee46s1d1s1o" path="res://scenes/ingame/level.tscn" id="1_74mfn"]
+
+[node name="2" type="Node3D"]
+
+[node name="Level" parent="." instance=ExtResource("1_74mfn")]
+track_count = 5

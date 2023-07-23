@@ -11,6 +11,7 @@ extends Node
 	preload("res://audio/effect_crate_hit_train_3.mp3")
 ]
 
+# Minimum velocity required on any axis to trigger a sound
 var crate_velocity_factor = 2.5
 
 var rng = RandomNumberGenerator.new()
@@ -26,7 +27,6 @@ func play_effect(at: Vector3, effect: AudioStream):
 		last_played_slot = 0
 
 	var slot = get_child(last_played_slot)
-	print(slot)
 	slot.position = at
 	slot.stream = effect
 	slot.play()

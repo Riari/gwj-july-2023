@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://blqb6r5h3s5as"]
 
-[ext_resource type="PackedScene" uid="uid://dwabh6qnxlaas" path="res://scenes/objects/train-car-gondola.tscn" id="1_fry8e"]
-[ext_resource type="Script" path="res://scripts/train.gd" id="1_hgrcm"]
-[ext_resource type="PackedScene" uid="uid://bqemtn5axkqxn" path="res://scenes/objects/train-locomotive.tscn" id="2_x53fc"]
+[ext_resource type="Script" path="res://scripts/train.gd" id="1_4qb0f"]
+[ext_resource type="PackedScene" uid="uid://dwabh6qnxlaas" path="res://scenes/ingame/objects/train-car-gondola.tscn" id="2_ae7un"]
+[ext_resource type="PackedScene" uid="uid://bqemtn5axkqxn" path="res://scenes/ingame/objects/train-locomotive.tscn" id="3_onmx8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vcgn1"]
 size = Vector3(15.5966, 0.0944538, 2.37378)
 
 [node name="train" type="Node3D"]
-script = ExtResource("1_hgrcm")
+script = ExtResource("1_4qb0f")
 
-[node name="Gondola" parent="." instance=ExtResource("1_fry8e")]
+[node name="Gondola" parent="." instance=ExtResource("2_ae7un")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6924, 0, 0)
 
-[node name="Locomotive" parent="." instance=ExtResource("2_x53fc")]
+[node name="Locomotive" parent="." instance=ExtResource("3_onmx8")]
 
 [node name="Area3D" type="Area3D" parent="."]
 

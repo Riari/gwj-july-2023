@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var spawn_timer: Timer = $SpawnTimer
-@export var train_scene: PackedScene = preload("res://scenes/objects/train.tscn")
+@export var train_scene: PackedScene = preload("res://scenes/ingame/objects/train.tscn")
 
 var has_spawned = false
 var spawn_mode: int
