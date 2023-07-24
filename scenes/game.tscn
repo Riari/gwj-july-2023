@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6qbpj5bedjiy"]
+
+[ext_resource type="PackedScene" uid="uid://dicfr27lgsrks" path="res://scenes/main-menu.tscn" id="1_0gabl"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_chm1w"]
+[ext_resource type="PackedScene" uid="uid://c856gqeb4knq1" path="res://scenes/ingame/ui/button-sounds.tscn" id="2_ai4uj"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_chm1w")
+
+[node name="CurrentScene" type="Node" parent="."]
+
+[node name="MainMenu" parent="CurrentScene" instance=ExtResource("1_0gabl")]
+
+[node name="ButtonSounds" parent="." instance=ExtResource("2_ai4uj")]

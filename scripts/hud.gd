@@ -46,6 +46,7 @@ var scene_score_popup = preload("res://scenes/ingame/ui/fragments/score-popup.ts
 signal button_exit_pressed
 signal button_try_again_pressed
 signal button_continue_pressed
+signal button_hamburger_pressed
 
 func _ready():
 	node_cursor_attachments.visible = false
@@ -189,6 +190,9 @@ func on_button_try_again_pressed():
 
 func on_button_continue_pressed():
 	button_continue_pressed.emit()
+
+func on_hamburger_button_pressed():
+	button_hamburger_pressed.emit()
 
 func on_medal_won(medal: Globals.Medal):
 	node_button_continue.disabled = false

@@ -9,7 +9,7 @@ func on_button_play_pressed():
 	panel_play.visible = true
 
 func on_button_play_play_pressed():
-	get_tree().change_scene_to_packed(level_1)
+	get_node("/root/Game").load_scene(level_1)
 
 func on_button_play_back_pressed():
 	panel_play.visible = false

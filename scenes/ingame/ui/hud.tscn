@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dptt37oqe2nhi"]
+[gd_scene load_steps=26 format=3 uid="uid://dptt37oqe2nhi"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_ilyqu"]
 [ext_resource type="Theme" uid="uid://dqyfggoaaux27" path="res://default_theme.tres" id="1_vpm3y"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://c64rrh1t5jjxl" path="res://textures/icon_medal_gold.png" id="7_omekq"]
 [ext_resource type="AudioStream" uid="uid://3ky8y3tabjpc" path="res://audio/ui_score_3.wav" id="7_w6ss6"]
 [ext_resource type="AudioStream" uid="uid://ckwu0s3gp0gi0" path="res://audio/ui_time_low.mp3" id="11_si0eb"]
+[ext_resource type="Texture2D" uid="uid://bnnigwxg33g66" path="res://textures/ui_hamburger_button_normal.png" id="12_n7lxe"]
+[ext_resource type="Texture2D" uid="uid://ikg0e453cmam" path="res://textures/ui_hamburger_button_pressed.png" id="13_iodih"]
+[ext_resource type="Texture2D" uid="uid://dd1ofibc2u6gu" path="res://textures/ui_hamburger_button_hovered.png" id="14_1a8mv"]
 
 [sub_resource type="Gradient" id="Gradient_hsmrh"]
 offsets = PackedFloat32Array(0.440104, 0.463542, 0.638021, 0.666667)
@@ -482,6 +485,17 @@ stream = ExtResource("7_w6ss6")
 [node name="TimeLowSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_si0eb")
 
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 48.0
+offset_bottom = 48.0
+texture_normal = ExtResource("12_n7lxe")
+texture_pressed = ExtResource("13_iodih")
+texture_hover = ExtResource("14_1a8mv")
+
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonExit" to="." method="on_button_exit_pressed"]
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonTryAgain" to="." method="on_button_try_again_pressed"]
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonContinue" to="." method="on_button_continue_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="on_hamburger_button_pressed"]
