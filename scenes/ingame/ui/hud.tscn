@@ -273,7 +273,6 @@ autowrap_mode = 0
 
 [node name="LevelEndOverlay" type="Panel" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -340,7 +339,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Try again"
 
-[node name="ButtonContinue" type="Button" parent="LevelEndOverlay/Panel" groups=["button"]]
+[node name="ButtonNextLevel" type="Button" parent="LevelEndOverlay/Panel" groups=["button"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -497,5 +496,5 @@ texture_hover = ExtResource("14_1a8mv")
 
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonExit" to="." method="on_button_exit_pressed"]
 [connection signal="pressed" from="LevelEndOverlay/Panel/ButtonTryAgain" to="." method="on_button_try_again_pressed"]
-[connection signal="pressed" from="LevelEndOverlay/Panel/ButtonContinue" to="." method="on_button_continue_pressed"]
+[connection signal="pressed" from="LevelEndOverlay/Panel/ButtonNextLevel" to="." method="on_button_continue_pressed"]
 [connection signal="pressed" from="TextureButton" to="." method="on_hamburger_button_pressed"]

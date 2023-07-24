@@ -31,3 +31,5 @@ movie_writer/movie_file="C:/Users/Rick/Projects/Godot/gwj-july-2023/demo.avi"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/quality/screen_space_aa=1
+lights_and_shadows/rendering_method.mobile="gl_compatibility"
+lights_and_shadows/rendering_method="gl_compatibility"

@@ -10,7 +10,6 @@ scene_next_level = ExtResource("2_kgfc2")
 
 [node name="Level" parent="." instance=ExtResource("1_xdci6")]
 time_limit = 60
-target_score_gold = 400
 
 [connection signal="request_continue" from="Level" to="." method="on_request_continue"]
 [connection signal="request_exit" from="Level" to="." method="on_request_exit"]

@@ -14,7 +14,9 @@ extends Control
 @onready var node_sound_score_2 = $ScoreSounds/Score2
 @onready var node_sound_score_3 = $ScoreSounds/Score3
 @onready var node_level_end_overlay = $LevelEndOverlay
-@onready var node_button_continue = $LevelEndOverlay/Panel/ButtonContinue
+@onready var node_button_exit = $LevelEndOverlay/Panel/ButtonExit
+@onready var node_button_try_again = $LevelEndOverlay/Panel/ButtonTryAgain
+@onready var node_button_next_level = $LevelEndOverlay/Panel/ButtonNextLevel
 @onready var node_icon_bronze = $LevelEndOverlay/Panel/Scores/IconBronze
 @onready var node_label_bronze = $LevelEndOverlay/Panel/Scores/Bronze
 @onready var node_icon_silver = $LevelEndOverlay/Panel/Scores/IconSilver
@@ -43,6 +45,9 @@ var play_time_low_sound = false
 
 var scene_score_popup = preload("res://scenes/ingame/ui/fragments/score-popup.tscn")
 
+var enable_buttons_timer = 1.0
+var did_qualify_for_next_level = false
+
 signal button_exit_pressed
 signal button_try_again_pressed
 signal button_continue_pressed
@@ -52,6 +57,9 @@ func _ready():
 	node_cursor_attachments.visible = false
 	node_level_end_overlay.visible = false
 	node_points.text = "0"
+	node_button_exit.disabled = true
+	node_button_try_again.disabled = true
+	node_button_next_level.disabled = true
 
 func _process(delta):
 	if is_discarding:
@@ -78,6 +86,16 @@ func _process(delta):
 		if not node_time_low_sound.playing:
 			node_time_low_sound.play()
 
+	if node_level_end_overlay.visible and enable_buttons_timer > 0:
+		enable_buttons_timer -= delta
+
+		if enable_buttons_timer <= 0:
+			node_button_exit.disabled = false
+			node_button_try_again.disabled = false
+
+			if did_qualify_for_next_level:
+				node_button_next_level.disabled = false
+
 	if not node_cursor_attachments.visible:
 		return
 
@@ -94,9 +112,7 @@ func init(time_limit: int, continue_enabled: bool, crate_discard_delay: float, c
 	drop_cooldown_time = crate_drop_cooldown
 
 	if not continue_enabled:
-		node_button_continue.visible = false
-	else:
-		node_button_continue.disabled = true
+		node_button_next_level.visible = false
 
 	node_countdown_overlay.visible = true
 
@@ -195,7 +211,7 @@ func on_hamburger_button_pressed():
 	button_hamburger_pressed.emit()
 
 func on_medal_won(medal: Globals.Medal):
-	node_button_continue.disabled = false
+	did_qualify_for_next_level = true
 
 	if medal == Globals.Medal.BRONZE:
 		node_icon_bronze.modulate = Color(1, 1, 1, 1)
